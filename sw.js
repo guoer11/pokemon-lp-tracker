@@ -1,5 +1,5 @@
-const CACHE='pokemon-lp-tracker-v8';
-const ASSETS=['./','./index.html','./style.css','./fixes.css','./pokemon-picker.js','./app.js','./opponent-history.js','./manifest.webmanifest'];
+const CACHE='pokemon-lp-tracker-v9';
+const ASSETS=['./','./index.html','./style.css?v=9','./fixes.css?v=9','./mobile-v9.css?v=9','./pokemon-picker.js?v=9','./app.js?v=9','./opponent-history.js?v=9','./manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;if(e.request.mode==='navigate'){e.respondWith(fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put('./index.html',copy));return r}).catch(()=>caches.match('./index.html')));return}e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request).then(r=>{if(r.ok&&new URL(e.request.url).origin===self.location.origin){const copy=r.clone();caches.open(CACHE).then(cache=>cache.put(e.request,copy))}return r})))});
