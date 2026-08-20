@@ -8,13 +8,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="WSC LP">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./style.css?v=9">
 <title>2026-2027 WSC LP 計分</title>
 <style>
 .opponent-search{position:relative;min-width:0}.opponent-input-wrap{display:flex;align-items:center;gap:8px}.opp-thumb{width:42px;height:42px;border-radius:9px;object-fit:contain;background:var(--soft);flex:0 0 auto}.opp-fallback{display:flex;align-items:center;justify-content:center;color:var(--blue);font-weight:900}.opponent-results{position:absolute;z-index:20;left:50px;right:0;top:48px;max-height:250px;overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--card);box-shadow:0 10px 30px #0002}.opp-result{width:100%;display:flex;align-items:center;gap:9px;padding:7px 9px;border:0;border-bottom:1px solid var(--border);background:var(--card);color:var(--text);text-align:left;cursor:pointer}.opp-result:last-child{border-bottom:0}.opp-result:hover{background:var(--soft)}.opp-result img{width:42px;height:42px;object-fit:contain}.opp-result b,.opp-result small{display:block}.opp-result small{color:var(--muted);font-size:11px}.round-format{font-size:11px;color:var(--muted);font-weight:800}.worldbadge{background:#ede9fe;color:#5b21b6}.formatbadge{background:#ecfdf3;color:#067647}.round.bo3{grid-template-columns:52px 84px 105px 92px minmax(180px,1fr)}.round.bo3 .round-extra{grid-column:2/-1}.score.world strong{font-size:24px}.score.world span{font-size:10px;color:var(--muted)}
 @media(max-width:680px){.round,.round.bo3{grid-template-columns:44px 72px 88px minmax(0,1fr)}.round.bo3 .r-score{grid-column:2/3}.round.bo3 .opponent-search{grid-column:3/-1}.opponent-results{left:0}}
 </style>
-<link rel="stylesheet" href="./fixes.css">
+<link rel="stylesheet" href="./fixes.css?v=9">
+<link rel="stylesheet" href="./mobile-v9.css?v=9">
 </head>
 <body>
 <div class="app">
@@ -66,8 +67,8 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./pokemon-picker.js"></script>
-<script src="./app.js"></script>
-<script src="./opponent-history.js"></script>
+<script src="./pokemon-picker.js?v=9"></script>
+<script src="./app.js?v=9"></script>
+<script src="./opponent-history.js?v=9"></script>
 </body>
 </html>
