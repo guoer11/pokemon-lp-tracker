@@ -1,0 +1,23 @@
+.r-note{display:none!important}
+.round>div:first-child{box-sizing:border-box;border:1px solid var(--border);border-radius:14px;background:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.round-no{font-size:17px!important;line-height:1!important;font-weight:900!important;text-align:center!important}
+.round-format{margin-top:5px!important;font-size:9px!important;line-height:1!important;font-weight:850!important;letter-spacing:.04em;text-align:center!important;color:var(--muted)!important}
+.round-extra{display:flex!important;justify-content:flex-end!important;align-items:center!important;gap:8px!important}
+.round-extra .save-round,.round-extra .delete-round{min-width:68px}
+@media(max-width:680px){
+  .round,.round.bo3{display:grid!important;grid-template-columns:64px minmax(0,1fr) minmax(0,1fr)!important;gap:10px!important;align-items:center!important;padding:12px!important}
+  .round>div:first-child{grid-column:1!important;grid-row:1!important;width:64px!important;min-height:58px!important;padding:7px 4px!important}
+  .round .r-result{grid-column:2!important;grid-row:1!important;width:100%!important;min-width:0!important;text-align:center!important}
+  .round .r-turn{grid-column:3!important;grid-row:1!important;width:100%!important;min-width:0!important;text-align:center!important}
+  .round:not(.bo3) .opponent-search{grid-column:1/-1!important;grid-row:2!important;width:100%!important;min-width:0!important}
+  .round.bo3 .r-score{grid-column:2/4!important;grid-row:2!important;width:100%!important;min-width:0!important}
+  .round.bo3 .opponent-search{grid-column:1/-1!important;grid-row:3!important;width:100%!important;min-width:0!important}
+  .opponent-input-wrap{display:flex!important;width:100%!important;min-width:0!important;gap:9px!important}
+  .opponent-input-wrap .r-opponent{flex:1 1 auto!important;width:auto!important;min-width:0!important;font-size:16px!important}
+  .opponent-input-wrap .opp-thumb{width:48px!important;height:48px!important;flex:0 0 48px!important}
+  .round:not(.bo3) .round-extra{grid-column:1/-1!important;grid-row:3!important;width:100%!important}
+  .round.bo3 .round-extra{grid-column:1/-1!important;grid-row:4!important;width:100%!important}
+  .round-extra{display:flex!important;justify-content:flex-end!important;gap:8px!important}
+  .round-extra .save-round,.round-extra .delete-round{min-width:76px!important}
+  .opponent-results{left:0!important;right:0!important;width:auto!important;max-height:min(320px,42vh)!important}
+}
