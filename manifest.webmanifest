@@ -1,0 +1,11 @@
+{
+  "name": "Pokémon LP 計分",
+  "short_name": "LP 計分",
+  "description": "2026-27 Pokémon Asia Championship Series TCG 聯盟賽點數與 Best 8 計算",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#172554",
+  "lang": "zh-Hant"
+}
