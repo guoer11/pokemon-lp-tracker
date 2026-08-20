@@ -41,7 +41,7 @@
 <section class="panel bottom">
   <strong>資料儲存：</strong><span id="storageText">目前為本機模式，比賽紀錄只存在這台裝置；戰報需登入後使用。</span><br>
   <strong>Best Finish Limit：</strong>取 LP 最高的 8 場結果加總。<br>
-  <strong>戰報 V2：</strong>可記我的牌組、對手牌組、W/L/D、先後攻與每輪備註；代表圖會縮成小圖存在自己的 Supabase 資料中。
+  <strong>戰報 V2：</strong>可記我的牌組、對手牌組、W/L/D、先後攻與每輪備註；牌組代表寶可夢可直接搜尋選擇。
   <div id="cloudBox" class="cloudbox" hidden><strong>本機資料：</strong>這台裝置若有舊紀錄，可以登入後一次上傳到雲端。<div class="actions" style="margin-top:8px"><button id="uploadLocal" class="btn" type="button">將本機紀錄上傳</button></div></div>
   <div class="actions" style="margin-top:12px"><button id="export" class="btn" type="button">匯出比賽備份</button><label class="btn">匯入比賽備份<input id="import" class="file" type="file" accept="application/json,.json"></label></div>
 </section>
@@ -50,13 +50,17 @@
   <form id="deckForm" class="modal">
     <h3>新增牌組</h3>
     <label><span>牌組名稱</span><input id="deckName" maxlength="60" placeholder="例：多龍巴魯托ex" required></label>
-    <label style="display:block;margin-top:12px"><span>代表寶可夢縮圖（選填）</span><input id="deckImage" type="file" accept="image/*"><small class="help">圖片會在手機端縮成 160×160 小圖再儲存。</small></label>
+    <label class="pokemon-search-wrap"><span>代表寶可夢（選填）</span><input id="pokemonSearch" type="search" autocomplete="off" placeholder="搜尋：多龍、Charizard、0006"><small id="pokemonStatus" class="help">輸入繁中名稱、英文名稱或圖鑑編號</small></label>
+    <div id="pokemonResults" class="pokemon-results" hidden></div>
+    <div id="pokemonChosen" class="pokemon-chosen" hidden></div>
+    <label class="manual-image"><span>自行上傳縮圖（備用）</span><input id="deckImage" type="file" accept="image/*"><small class="help">若搜尋不到或想用自己的圖，可自行上傳；圖片會縮成 160×160 後儲存。</small></label>
     <img id="deckPreview" class="thumb-preview" alt="縮圖預覽">
     <div id="deckMsg" class="msg"></div>
     <div class="actions"><button id="deckSave" class="btn primary" type="submit">加入牌組庫</button><button id="deckCancel" class="btn" type="button">取消</button></div>
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./pokemon-picker.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>
