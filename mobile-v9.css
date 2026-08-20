@@ -1,12 +1,21 @@
 .r-note{display:none!important}
-.round>div:first-child{box-sizing:border-box;border:1px solid var(--border);border-radius:14px;background:var(--soft);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.round-no{font-size:17px!important;line-height:1!important;font-weight:900!important;text-align:center!important}
-.round-format{margin-top:5px!important;font-size:9px!important;line-height:1!important;font-weight:850!important;letter-spacing:.04em;text-align:center!important;color:var(--muted)!important}
+.round>div:first-child{box-sizing:border-box;border:1px solid #b8d5ff;border-radius:14px;background:linear-gradient(145deg,#eef6ff,#dcecff);box-shadow:0 3px 10px rgba(37,99,235,.10);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.round-no{font-size:17px!important;line-height:1!important;font-weight:900!important;text-align:center!important;color:#174ea6!important}
+.round-format{margin-top:5px!important;padding:3px 7px!important;border-radius:999px!important;background:#ffffff!important;border:1px solid #c9ddff!important;font-size:9px!important;line-height:1!important;font-weight:850!important;letter-spacing:.04em;text-align:center!important;color:#2563eb!important}
 .round-extra{display:flex!important;justify-content:flex-end!important;align-items:center!important;gap:8px!important}
 .round-extra .save-round,.round-extra .delete-round{min-width:68px}
+.opp-thumb{cursor:pointer!important;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;border:1px solid #c9ddff!important;box-shadow:0 2px 7px rgba(37,99,235,.08)}
+.opp-thumb:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,.16)}
+.opp-thumb:active{transform:scale(.97)}
+.thumb-picker-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);background:linear-gradient(145deg,#f5f9ff,#edf5ff)}
+.thumb-picker-head b,.thumb-picker-head small{display:block}.thumb-picker-head b{font-size:13px;color:var(--text)}.thumb-picker-head small{margin-top:3px;font-size:11px;color:var(--muted)}
+.thumb-clear{flex:0 0 auto;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--danger);font-weight:800;padding:7px 9px;cursor:pointer}
+.thumb-search-wrap{padding:9px 10px;border-bottom:1px solid var(--border);background:var(--card)}
+.thumb-search{width:100%!important;min-width:0!important;box-sizing:border-box!important;padding:11px 12px!important;border:1px solid var(--border)!important;border-radius:10px!important;background:var(--card)!important;color:var(--text)!important;font-size:16px!important}
+.thumb-picker-results .opp-result{min-height:56px}
 @media(max-width:680px){
   .round,.round.bo3{display:grid!important;grid-template-columns:64px minmax(0,1fr) minmax(0,1fr)!important;gap:10px!important;align-items:center!important;padding:12px!important}
-  .round>div:first-child{grid-column:1!important;grid-row:1!important;width:64px!important;min-height:58px!important;padding:7px 4px!important}
+  .round>div:first-child{grid-column:1!important;grid-row:1!important;width:64px!important;min-height:60px!important;padding:7px 4px!important}
   .round .r-result{grid-column:2!important;grid-row:1!important;width:100%!important;min-width:0!important;text-align:center!important}
   .round .r-turn{grid-column:3!important;grid-row:1!important;width:100%!important;min-width:0!important;text-align:center!important}
   .round:not(.bo3) .opponent-search{grid-column:1/-1!important;grid-row:2!important;width:100%!important;min-width:0!important}
@@ -14,10 +23,11 @@
   .round.bo3 .opponent-search{grid-column:1/-1!important;grid-row:3!important;width:100%!important;min-width:0!important}
   .opponent-input-wrap{display:flex!important;width:100%!important;min-width:0!important;gap:9px!important}
   .opponent-input-wrap .r-opponent{flex:1 1 auto!important;width:auto!important;min-width:0!important;font-size:16px!important}
-  .opponent-input-wrap .opp-thumb{width:48px!important;height:48px!important;flex:0 0 48px!important}
+  .opponent-input-wrap .opp-thumb{width:50px!important;height:50px!important;flex:0 0 50px!important}
   .round:not(.bo3) .round-extra{grid-column:1/-1!important;grid-row:3!important;width:100%!important}
   .round.bo3 .round-extra{grid-column:1/-1!important;grid-row:4!important;width:100%!important}
   .round-extra{display:flex!important;justify-content:flex-end!important;gap:8px!important}
   .round-extra .save-round,.round-extra .delete-round{min-width:76px!important}
-  .opponent-results{left:0!important;right:0!important;width:auto!important;max-height:min(320px,42vh)!important}
+  .opponent-results{left:0!important;right:0!important;width:auto!important;max-height:min(360px,48vh)!important}
+  .thumb-picker-head{padding:9px 10px}.thumb-picker-head small{max-width:210px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
