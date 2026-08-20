@@ -1,4 +1,4 @@
-const CACHE='pokemon-lp-tracker-v6';
+const CACHE='pokemon-lp-tracker-v7';
 const ASSETS=['./','./index.html','./style.css','./fixes.css','./pokemon-picker.js','./app.js','./opponent-history.js','./manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
