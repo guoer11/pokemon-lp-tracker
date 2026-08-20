@@ -1,7 +1,7 @@
 {
-  "name": "Pokémon LP 計分",
-  "short_name": "LP 計分",
-  "description": "2026-27 Pokémon Asia Championship Series TCG 聯盟賽點數與 Best 8 計算",
+  "name": "2026-2027 WSC LP 計分",
+  "short_name": "WSC LP",
+  "description": "2026-2027 Pokémon TCG LP、Best 8 與比賽戰報紀錄",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
