@@ -30,6 +30,7 @@
 .round:not(.bo3)>.round-detail-v15{grid-template-columns:60px 126px 94px minmax(180px,1fr);gap:8px;align-items:center}
 .round.bo3>.round-detail-v15{grid-template-columns:64px minmax(0,1fr);gap:8px;align-items:center}
 .round-detail-v15>div:first-child{background:linear-gradient(145deg,#dbeafe,#eef6ff)!important;border:1px solid #bfdbfe!important;box-shadow:inset 0 1px 0 #fff,0 2px 8px #2563eb12!important;border-radius:12px;padding:8px;text-align:center}
+.round.bo3>.round-detail-v15>.result-segment,.round.bo3>.round-detail-v15>.turn-segment,.round.bo3>.round-detail-v15>.r-score{display:none!important}
 .round.bo3>.round-detail-v15>.bo3-overall{grid-column:2!important;grid-row:1!important}
 .round.bo3>.round-detail-v15>.opponent-search{grid-column:1/-1!important;grid-row:2!important}
 .round.bo3>.round-detail-v15>.bo3-games{grid-column:1/-1!important;grid-row:3!important}
