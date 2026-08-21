@@ -18,6 +18,11 @@ function targetTable(req){
   return null;
 }
 
+function signalSaved(table,id){
+  if(table!=='events')return;
+  window.dispatchEvent(new CustomEvent('pokemon:event-save-success',{detail:{id}}));
+}
+
 async function confirmSaved(req,id){
   if(!id)return null;
   try{
@@ -36,7 +41,8 @@ async function confirmSaved(req,id){
 
 window.fetch=async function(input,init){
   const original=new Request(input,init);
-  if(!targetTable(original))return nativeFetch(input,init);
+  const table=targetTable(original);
+  if(!table)return nativeFetch(input,init);
 
   let body;
   try{body=JSON.parse(await original.clone().text())}catch{return nativeFetch(input,init)}
@@ -48,21 +54,19 @@ window.fetch=async function(input,init){
   const patched=Array.isArray(body)?rows:rows[0];
   const request=new Request(original,{body:JSON.stringify(patched)});
 
-  // Fast path: one normal request, no extra query and no artificial wait.
   try{
     const response=await nativeFetch(request.clone());
-    if(response.ok)return response;
+    if(response.ok){signalSaved(table,id);return response}
     if(response.status===409||response.status===400){
       const existing=await confirmSaved(request,id);
-      if(existing)return existing;
+      if(existing){signalSaved(table,id);return existing}
     }
     return response;
   }catch(firstError){
     if(!transient(firstError))throw firstError;
 
-    // Recovery path only runs after Safari actually reports a network failure.
     let existing=await confirmSaved(request,id);
-    if(existing)return existing;
+    if(existing){signalSaved(table,id);return existing}
 
     const waits=[220,420];
     let lastError=firstError;
@@ -70,17 +74,17 @@ window.fetch=async function(input,init){
       await sleep(wait);
       try{
         const response=await nativeFetch(request.clone());
-        if(response.ok)return response;
+        if(response.ok){signalSaved(table,id);return response}
         if(response.status===409||response.status===400||response.status>=500){
           existing=await confirmSaved(request,id);
-          if(existing)return existing;
+          if(existing){signalSaved(table,id);return existing}
           if(response.status<500)return response;
         }else return response;
       }catch(e){
         lastError=e;
         if(!transient(e))throw e;
         existing=await confirmSaved(request,id);
-        if(existing)return existing;
+        if(existing){signalSaved(table,id);return existing}
       }
     }
     throw lastError;
