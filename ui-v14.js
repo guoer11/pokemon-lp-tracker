@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V15.3.3';
+const VERSION='V15.3.4';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -88,7 +88,6 @@ function initTournamentDialog(){
   });
   close.addEventListener('click',()=>dlg.close());
 
-  // Keep the form open while editing/creating. Backdrop clicks and Esc no longer close it.
   dlg.addEventListener('cancel',e=>e.preventDefault());
 
   document.addEventListener('click',e=>{
