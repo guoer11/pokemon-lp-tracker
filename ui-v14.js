@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V5.5';
+const VERSION='V5.5.2';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -55,10 +55,10 @@ function loadV54Assets(){
 
 function loadV55Assets(){
   if(!document.querySelector('link[data-v55]')){
-    const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.5.css?v=5.5';link.dataset.v55='1';document.head.appendChild(link);
+    const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.5.css?v=5.5.2';link.dataset.v55='1';document.head.appendChild(link);
   }
   if(!document.querySelector('script[data-v55]')){
-    const s=document.createElement('script');s.src='./v5.5.js?v=5.5';s.dataset.v55='1';document.body.appendChild(s);
+    const s=document.createElement('script');s.src='./v5.5.js?v=5.5.2';s.dataset.v55='1';document.body.appendChild(s);
   }
 }
 
