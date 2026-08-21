@@ -1,0 +1,12 @@
+/* V5.4: mixed tournament format, per-round BO1/BO3 */
+.round.mixed-format .round-format{margin-top:3px}
+.round.mixed-format .r-format{width:auto!important;min-width:64px!important;min-height:28px!important;height:28px!important;padding:2px 22px 2px 7px!important;border-radius:8px!important;font-size:11px!important;font-weight:900!important;background:var(--card)!important;color:var(--blue)!important}
+.round.mixed-format>.round-summary-v15 .v15-round-no{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;line-height:1.05!important}
+.round.mixed-format>.round-summary-v15 .v15-round-no::after{content:attr(data-format-label);display:inline-flex;align-items:center;justify-content:center;min-width:31px;padding:2px 4px;border:1px solid #bfdbfe;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:8px;font-weight:900;letter-spacing:.02em;box-sizing:border-box}
+@media(max-width:680px){
+  .round.mixed-format .r-format{min-width:62px!important;font-size:10px!important;padding-left:6px!important}
+  .round.mixed-format>.round-summary-v15 .v15-round-no::after{font-size:7px;min-width:29px;padding:2px 3px}
+}
+@media(prefers-color-scheme:dark){
+  .round.mixed-format>.round-summary-v15 .v15-round-no::after{background:#172b4d;color:#bfdbfe;border-color:#31568f}
+}
