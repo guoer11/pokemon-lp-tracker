@@ -13,7 +13,7 @@ function closeSavedDialog(){
 }
 
 function init(){
-  const form=$('form'),msg=$('msg'),list=$('list'),btn=$('submitBtn');
+  const form=$('form'),msg=$('msg'),list=$('list'),btn=$('submitBtn'),title=$('formTitle');
   if(!form||!msg||!list||!btn)return;
 
   // Shared desktop/mobile guard: one submit at a time.
@@ -38,10 +38,20 @@ function init(){
     if(pending&&!wasEdit&&list.children.length!==beforeCount)closeSavedDialog();
   }).observe(list,{childList:true});
 
-  // Covers desktop cloud saves and edit-mode saves.
+  // Successful edit calls resetForm(), which restores these labels.
+  // This is a more reliable signal than waiting for the status message on Safari/Chrome.
+  const detectEditSuccess=()=>{
+    if(!pending||!wasEdit)return;
+    const resetDone=btn.textContent.trim()==='儲存比賽'&&(!title||title.textContent.trim()==='新增比賽');
+    if(resetDone)closeSavedDialog();
+  };
+  new MutationObserver(detectEditSuccess).observe(btn,{childList:true,characterData:true,subtree:true});
+  if(title)new MutationObserver(detectEditSuccess).observe(title,{childList:true,characterData:true,subtree:true});
+
+  // Success/failure message fallback for both new and edited events.
   new MutationObserver(()=>{
     if(!pending)return;
-    if(msg.classList.contains('ok')&&/已儲存/.test(msg.textContent)){
+    if(msg.classList.contains('ok')&&msg.textContent.trim()){
       closeSavedDialog();
       return;
     }
