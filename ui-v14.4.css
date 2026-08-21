@@ -1,7 +1,7 @@
-/* V14.4: compact desktop summary cards only */
+/* V14.4.1: compact equal-width desktop summary cards only */
 @media(min-width:681px){
-  .summary{gap:8px!important;margin-bottom:10px!important}
-  .summary .sum{min-height:84px!important;padding:10px 14px!important;border-radius:15px!important}
+  .summary{grid-template-columns:repeat(3,minmax(0,1fr))!important;max-width:680px!important;width:100%!important;gap:8px!important;margin:0 auto 10px!important}
+  .summary .sum{min-width:0!important;min-height:84px!important;padding:10px 14px!important;border-radius:15px!important}
   .summary .sum span{font-size:11px!important;line-height:1.2!important}
   .summary .sum strong{margin-top:4px!important;font-size:30px!important;line-height:1!important}
 }
