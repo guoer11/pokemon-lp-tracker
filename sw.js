@@ -1,4 +1,4 @@
-const CACHE='pokemon-lp-tracker-v13';
+const CACHE='pokemon-lp-tracker-v13.1';
 const ASSETS=['./','./index.html','./style.css?v=13','./fixes.css?v=13','./mobile-v9.css?v=13','./battle-v11.css?v=13','./v13.css?v=13','./pokemon-picker.js?v=13','./app.js?v=13','./opponent-history-core-v10.js?v=13','./battle-v11.js?v=13','./own-deck-v13.js?v=13','./bo3-v13.js?v=13','./manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil((async()=>{const c=await caches.open(CACHE);for(const u of ASSETS){try{const req=new Request(new URL(u,self.location.href),{cache:'reload'});const r=await fetch(req);if(r.ok)await c.put(u,r.clone())}catch{}}})());self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
