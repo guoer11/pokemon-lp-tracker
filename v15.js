@@ -64,14 +64,19 @@ function applyOpen(row){
 function updateSummary(row){
   const summary=buildSummary(row),detail=ensureDetail(row);
   if(!detail)return;
-  const no=roundNumber(row),name=(qs('.r-opponent',row)?.value||'').trim();
-  qs('.v15-round-no',summary).textContent='R'+(no||'?');
-  const pair=qs('.v15-pokemon-pair',summary);pair.innerHTML='';
-  for(const img of summaryImages(row)){const el=document.createElement('img');el.src=img.src;el.alt=img.alt;pair.appendChild(el)}
-  qs('.v15-deck-name',summary).textContent=name||'尚未填寫對手牌組';
-  const r=summaryResult(row),resultBox=qs('.v15-result-summary',summary);
-  qs('strong',resultBox).textContent=r.main;qs('small',resultBox).textContent=r.small;
-  row.classList.remove('v15-win','v15-loss','v15-draw','v15-empty');row.classList.add(stateClass(r.result));
+  const no=roundNumber(row),name=(qs('.r-opponent',row)?.value||'').trim(),images=summaryImages(row),r=summaryResult(row);
+  const key=JSON.stringify([no,name,images.map(x=>x.src),r.result,r.main,r.small]);
+  if(summary.dataset.summaryKey!==key){
+    summary.dataset.summaryKey=key;
+    qs('.v15-round-no',summary).textContent='R'+(no||'?');
+    const pair=qs('.v15-pokemon-pair',summary);pair.innerHTML='';
+    for(const img of images){const el=document.createElement('img');el.src=img.src;el.alt=img.alt;pair.appendChild(el)}
+    qs('.v15-deck-name',summary).textContent=name||'尚未填寫對手牌組';
+    const resultBox=qs('.v15-result-summary',summary);
+    qs('strong',resultBox).textContent=r.main;qs('small',resultBox).textContent=r.small;
+  }
+  const nextState=stateClass(r.result);
+  for(const c of ['v15-win','v15-loss','v15-draw','v15-empty'])row.classList.toggle(c,c===nextState);
   applyOpen(row);
 }
 function decorateRound(row){
