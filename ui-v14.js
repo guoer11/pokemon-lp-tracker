@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V5.3.4';
+const VERSION='V5.3.5';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -106,6 +106,12 @@ function initTournamentDialog(){
   }
 }
 
+function initCompetitionHint(){
+  const hint=$('.listhead .hint');
+  if(!hint)return;
+  hint.innerHTML='<span class="competition-hint-line">依最終名次顯示冠軍／亞軍／TOP 4／TOP 8／TOP 16</span><span class="competition-hint-line">LP 總分仍取可計分賽事最高 8 場。點比賽卡片可展開／收起戰報。</span>';
+}
+
 function initVersion(){
   const app=$('.app');if(!app)return;
   let v=$('.app-version-v14',app);
@@ -113,6 +119,6 @@ function initVersion(){
   v.textContent=VERSION;v.title='目前版本 '+VERSION;
 }
 
-function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();loadV153Assets();initTournamentDialog();initVersion()}
+function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();loadV153Assets();initTournamentDialog();initCompetitionHint();initVersion()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
