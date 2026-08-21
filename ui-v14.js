@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V15.1.3';
+const VERSION='V15.1.4';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
