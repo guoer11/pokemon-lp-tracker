@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V14';
+const VERSION='V14.1';
 const $=(s,r=document)=>r.querySelector(s);
 
 function openDialog(dlg){
