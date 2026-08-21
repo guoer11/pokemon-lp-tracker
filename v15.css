@@ -25,7 +25,7 @@
 .v15-result-summary small{font-size:10px;font-weight:900;color:var(--muted)}
 .v15-chevron{font-size:17px;color:var(--muted);transform:rotate(0deg);transition:transform .16s ease;text-align:center}
 .round.v15-open>.round-summary-v15 .v15-chevron{transform:rotate(180deg)}
-.round-detail-v15{display:none!important;padding:10px;border-top:1px solid var(--v15-line);background:var(--card);border-radius:0 0 10px 10px;min-width:0}
+.round>.round-detail-v15{display:none!important;padding:10px!important;border:0!important;border-top:1px solid var(--v15-line)!important;background:var(--card)!important;box-shadow:none!important;border-radius:0 0 10px 10px!important;min-width:0}
 .round.v15-open>.round-detail-v15{display:grid!important}
 .round:not(.bo3)>.round-detail-v15{grid-template-columns:60px 126px 94px minmax(180px,1fr);gap:8px;align-items:center}
 .round.bo3>.round-detail-v15{grid-template-columns:64px minmax(0,1fr);gap:8px;align-items:center}
@@ -36,7 +36,7 @@
 .round.bo3>.round-detail-v15>.round-extra{grid-column:1/-1!important;grid-row:4!important}
 .v15-add-round{width:100%!important;min-height:46px!important;border:1px dashed #cbd5e1!important;background:var(--card2)!important;color:var(--text)!important;border-radius:11px!important;font-size:14px!important;font-weight:850!important}
 .report>.actions:has(.v15-add-round){display:block!important;margin-top:10px!important}
-.v15-share-mode .round-detail-v15,.v15-share-mode .deck-controls,.v15-share-mode .new-own-deck,.v15-share-mode .deck-delete-v13,.v15-share-mode .report>.actions{display:none!important}
+.v15-share-mode .round-detail-v15,.v15-share-mode .deck-controls,.v15-share-mode .new-own-deck,.v15-share-mode .deck-delete-v13,.v15-share-mode>.actions{display:none!important}
 .v15-share-mode .v15-report-tools .v15-expand,.v15-share-mode .v15-report-tools .v15-collapse{display:none!important}
 .v15-share-mode .v15-report-tools{margin-bottom:8px}
 .v15-share-mode .v15-share{color:var(--blue);border-color:#93c5fd;background:#eff6ff}
@@ -53,7 +53,7 @@
   .v15-pokemon-pair img{width:31px;height:31px}
   .v15-deck-name{font-size:12px}
   .v15-result-summary{min-width:36px}.v15-result-summary strong{font-size:15px}.v15-result-summary small{font-size:9px}
-  .round-detail-v15{padding:8px}
+  .round>.round-detail-v15{padding:8px!important}
   .round:not(.bo3)>.round-detail-v15{grid-template-columns:64px minmax(122px,1.2fr) minmax(86px,.8fr);gap:7px}
   .round:not(.bo3)>.round-detail-v15>.result-segment{grid-column:2!important;grid-row:1!important}
   .round:not(.bo3)>.round-detail-v15>.turn-segment{grid-column:3!important;grid-row:1!important}
