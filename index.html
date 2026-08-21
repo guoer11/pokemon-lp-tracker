@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="./ui-v14.css?v=5.3.5">
 <link rel="stylesheet" href="./ui-v14.4.css?v=14.4.2">
 <link rel="stylesheet" href="./v15.css?v=15.1.4">
+<link rel="stylesheet" href="./v5.4.css?v=5.4">
 </head>
 <body>
 <div class="app">
@@ -40,7 +41,7 @@
     <label><span>日期</span><input id="date" type="date" required></label>
     <label><span>地點</span><input id="location" maxlength="80" placeholder="例：台南 XXX 卡牌道館" required></label>
     <label><span>比賽規格</span><select id="league"><option value="great">超級球聯盟賽</option><option value="premier">紀念球聯盟賽</option><option value="ultra">高級球聯盟賽</option><option value="master">大師球聯盟賽</option><option value="world">世界賽</option></select></label>
-    <label><span>對戰賽制</span><select id="matchFormat"><option value="bo1">BO1</option><option value="bo3">BO3</option></select></label>
+    <label><span>對戰賽制</span><select id="matchFormat"><option value="bo1">BO1</option><option value="bo3">BO3</option><option value="mixed">混合（每輪設定）</option></select></label>
     <label><span>參加人數</span><input id="participants" type="number" inputmode="numeric" min="1" max="9999" placeholder="例：64" required></label>
     <label><span>最終名次</span><input id="placement" type="number" inputmode="numeric" min="1" max="9999" placeholder="例：8" required></label>
     <label><span>聯盟賽點數 LP</span><input id="lp" type="number" inputmode="numeric" min="0" max="9999"><small id="scoreHelp" class="help">依官方規則自動計算</small></label>
@@ -72,16 +73,16 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./ios-safe-write-v14.2.js?v=14.4.3"></script>
+<script src="./ios-safe-write-v14.2.js?v=15.1.6"></script>
 <script src="./pokemon-picker.js?v=13.5"></script>
-<script src="./app.js?v=13"></script>
+<script src="./app.js?v=5.4"></script>
 <script src="./opponent-history-core-v10.js?v=13"></script>
 <script src="./battle-v11.js?v=13"></script>
 <script src="./own-deck-v13.js?v=13"></script>
 <script src="./bo3-v13.3.js?v=13.3"></script>
 <script src="./ui-v13.9.js?v=13.9"></script>
-<script src="./ui-v14.js?v=5.3.5"></script>
-<script src="./save-dialog-v14.4.4.js?v=15.3.1"></script>
+<script src="./ui-v14.js?v=5.4"></script>
+<script src="./save-dialog-v14.4.4.js?v=15.3.2"></script>
 <script src="./v15.js?v=15.1.4"></script>
 </body>
 </html>
