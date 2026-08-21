@@ -1,0 +1,22 @@
+/* V13.9 flat league colors + champion/runner-up placement badges */
+.badge.bestbadge{display:none!important}
+
+/* League badges: flat colors */
+.badge.league-great-v139{background:#2563eb!important;color:#fff!important;border:1px solid #2563eb!important;box-shadow:none!important}
+.badge.league-premier-v139{background:#475569!important;color:#fff!important;border:1px solid #475569!important;box-shadow:none!important}
+.badge.league-ultra-v139{background:#f59e0b!important;color:#172554!important;border:1px solid #f59e0b!important;box-shadow:none!important}
+.badge.league-master-v139{background:#7e22ce!important;color:#fff!important;border:1px solid #7e22ce!important;box-shadow:none!important}
+.badge.league-world-v139{background:#d4a017!important;color:#172554!important;border:1px solid #d4a017!important;box-shadow:none!important}
+
+/* Placement badges */
+.badge.placement-badge-v139{font-weight:900!important;letter-spacing:.02em!important;border:1px solid transparent!important;box-shadow:none!important}
+.badge.placement-champion{background:#f6c453!important;color:#4a2a00!important;border-color:#e7b332!important}
+.badge.placement-runnerup{background:#d7dde5!important;color:#334155!important;border-color:#b9c2cd!important}
+.badge.placement-top4{background:#b7791f!important;color:#fff!important;border-color:#b7791f!important}
+.badge.placement-top8{background:#172554!important;color:#fff!important;border-color:#172554!important}
+.badge.placement-top16{background:#e2e8f0!important;color:#334155!important;border-color:#cbd5e1!important}
+
+@media(prefers-color-scheme:dark){
+  .badge.placement-runnerup{background:#64748b!important;color:#fff!important;border-color:#94a3b8!important}
+  .badge.placement-top16{background:#475569!important;color:#fff!important;border-color:#64748b!important}
+}
