@@ -1,0 +1,54 @@
+/* V5.5: collapsible own-deck hero */
+.deck-hero.v55-collapsible{
+  position:relative;
+  padding-right:54px!important;
+  cursor:pointer;
+  transition:padding .15s ease,background .15s ease;
+}
+.deck-hero.v55-collapsible:not(.v55-open){
+  padding-top:10px!important;
+  padding-bottom:10px!important;
+  min-height:76px;
+  align-items:center!important;
+}
+.deck-hero.v55-collapsible:not(.v55-open) .deck-controls{display:none!important}
+.deck-hero.v55-collapsible.v55-open{align-items:flex-start!important}
+.deck-hero.v55-collapsible.v55-open .deck-controls{display:grid!important}
+.own-deck-toggle-v55{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  width:36px;
+  height:36px;
+  min-height:36px;
+  padding:0;
+  border:0;
+  border-radius:10px;
+  background:transparent;
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  font-size:20px;
+  line-height:1;
+}
+.own-deck-toggle-v55:hover{background:var(--soft)}
+.own-deck-toggle-v55 .v55-chevron{display:inline-block;transition:transform .15s ease}
+.deck-hero.v55-collapsible.v55-open .own-deck-toggle-v55{top:18px;transform:none}
+.deck-hero.v55-collapsible.v55-open .own-deck-toggle-v55 .v55-chevron{transform:rotate(180deg)}
+.deck-hero.v55-collapsible .deck-copy{padding-right:2px}
+.deck-hero.v55-collapsible:not(.v55-open) .deck-copy small{margin-bottom:2px}
+.deck-hero.v55-collapsible:not(.v55-open) .deck-copy strong{font-size:16px}
+
+@media(max-width:680px){
+  .deck-hero.v55-collapsible{padding-right:48px!important}
+  .deck-hero.v55-collapsible:not(.v55-open){
+    min-height:72px;
+    padding-top:9px!important;
+    padding-bottom:9px!important;
+  }
+  .deck-hero.v55-collapsible:not(.v55-open) .own-attacker-btn{width:46px;height:46px}
+  .own-deck-toggle-v55{right:8px;width:34px;height:34px;min-height:34px;font-size:19px}
+  .deck-hero.v55-collapsible.v55-open .own-deck-toggle-v55{top:12px}
+}
