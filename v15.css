@@ -58,13 +58,23 @@
   .v15-pokemon-pair img{width:31px;height:31px}
   .v15-deck-name{font-size:12px}
   .v15-result-summary strong{font-size:15px}.v15-result-summary small{font-size:9px}
-  .round>.round-detail-v15{padding:8px!important}
+  .round.v15-open>.round-summary-v15{display:none!important}
+  .round.v15-open>.round-detail-v15{padding:10px!important;border-top:0!important;border-radius:10px!important}
   .round:not(.bo3)>.round-detail-v15{grid-template-columns:64px minmax(122px,1.2fr) minmax(86px,.8fr);gap:7px}
   .round:not(.bo3)>.round-detail-v15>.result-segment{grid-column:2!important;grid-row:1!important}
   .round:not(.bo3)>.round-detail-v15>.turn-segment{grid-column:3!important;grid-row:1!important}
   .round:not(.bo3)>.round-detail-v15>.opponent-search{grid-column:1/-1!important;grid-row:2!important}
   .round:not(.bo3)>.round-detail-v15>.round-extra{grid-column:1/-1!important;grid-row:3!important}
-  .round.bo3>.round-detail-v15{grid-template-columns:64px minmax(0,1fr);gap:7px}
+  .round.bo3>.round-detail-v15{grid-template-columns:74px minmax(0,1fr)!important;gap:8px!important}
+  .round.bo3>.round-detail-v15>.bo3-overall{min-width:0!important}
+  .round.bo3>.round-detail-v15>.opponent-search{margin-top:2px}
+  .round.bo3>.round-detail-v15>.bo3-games{width:100%!important;min-width:0!important;box-sizing:border-box!important;padding:8px!important}
+  .bo3-game{display:grid!important;grid-template-columns:42px minmax(0,1fr)!important;grid-template-rows:44px 38px!important;gap:6px 7px!important;align-items:stretch!important}
+  .bo3-game-label{grid-column:1!important;grid-row:1/3!important;height:auto!important;min-height:88px!important}
+  .bo3-result-buttons{grid-column:2!important;grid-row:1!important;height:44px!important;gap:5px!important}
+  .bo3-turn-buttons{grid-column:2!important;grid-row:2!important;height:38px!important;gap:5px!important}
+  .bo3-choice{min-width:0!important;font-size:14px!important;padding:0 5px!important}
+  .round-extra{gap:7px!important}
   .v15-add-round{min-height:44px!important}
 }
 @media(prefers-color-scheme:dark){.report{--v15-win:#0d3329;--v15-loss:#3b191c;--v15-draw:#3a2d12;--v15-line:#2d3748}.v15-share-mode .v15-share{background:#172b4d}}
