@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V14.4.2';
+const VERSION='V14.4.3';
 const $=(s,r=document)=>r.querySelector(s);
 
 function loadV143Assets(){
@@ -56,10 +56,17 @@ function initTournamentDialog(){
     if(e.target.closest?.('.event-card .edit'))setTimeout(()=>openDialog(dlg),0);
   },true);
 
+  // iPhone safe-write layer signals as soon as Supabase confirms a new event was saved.
+  // Close immediately so the user gets a clear success cue and cannot accidentally save duplicates.
+  window.addEventListener('pokemon:event-save-success',()=>{
+    if(dlg.open)dlg.close();
+  });
+
+  // Keep the normal app success observer for desktop and edit-mode saves.
   const msg=document.getElementById('msg');
   if(msg){
     new MutationObserver(()=>{
-      if(dlg.open&&msg.classList.contains('ok')&&msg.textContent.trim())setTimeout(()=>{if(dlg.open)dlg.close()},120);
+      if(dlg.open&&msg.classList.contains('ok')&&msg.textContent.trim())setTimeout(()=>{if(dlg.open)dlg.close()},80);
     }).observe(msg,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['class']});
   }
 }
