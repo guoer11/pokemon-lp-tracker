@@ -1,6 +1,18 @@
 (()=>{'use strict';
-const VERSION='V15';
+const VERSION='V15.1';
 const $=(s,r=document)=>r.querySelector(s);
+
+function ensureFavicon(){
+  let link=document.querySelector('link[rel="icon"][data-masterball]');
+  if(!link){
+    link=document.createElement('link');
+    link.rel='icon';
+    link.type='image/svg+xml';
+    link.dataset.masterball='1';
+    document.head.appendChild(link);
+  }
+  link.href='./favicon.svg?v=15.1';
+}
 
 function loadV143Assets(){
   if(!document.querySelector('link[data-v143]')){
@@ -75,6 +87,6 @@ function initVersion(){
   v.textContent=VERSION;v.title='目前版本 '+VERSION;
 }
 
-function init(){loadV143Assets();initTournamentDialog();initVersion()}
+function init(){ensureFavicon();loadV143Assets();initTournamentDialog();initVersion()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
