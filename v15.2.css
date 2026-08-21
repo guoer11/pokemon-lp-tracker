@@ -1,0 +1,20 @@
+.v15-turn-summary{font-style:normal;font-size:9px;line-height:1;font-weight:900;white-space:nowrap;padding:3px 5px;border:1px solid #cbd5e1;border-radius:999px;background:rgba(255,255,255,.72);color:#475569;box-sizing:border-box}
+.round.v15-win .v15-turn-summary{border-color:#a7e8cf;color:#06765a;background:#f3fff9}
+.round.v15-loss .v15-turn-summary{border-color:#fecaca;color:#b91c1c;background:#fff7f7}
+.round.v15-draw .v15-turn-summary{border-color:#fde68a;color:#92400e;background:#fffdf3}
+.v15-result-summary.v15-has-turn{gap:6px}
+@media(max-width:680px){
+  .round-summary-v15,.round.bo3>.round-summary-v15{grid-template-columns:38px minmax(0,1fr) auto 16px!important}
+  .round-summary-v15>.v15-result-summary{width:auto!important;min-width:0!important;max-width:none!important;gap:3px!important}
+  .round:not(.bo3)>.round-summary-v15>.v15-result-summary{min-width:62px!important}
+  .round.bo3>.round-summary-v15>.v15-result-summary{min-width:84px!important}
+  .v15-turn-summary{font-size:8px;padding:2px 4px}
+  .v15-result-summary strong{font-size:15px!important}
+  .v15-result-summary small{font-size:8px!important}
+}
+@media(prefers-color-scheme:dark){
+  .v15-turn-summary{background:#1e293b;color:#cbd5e1;border-color:#475569}
+  .round.v15-win .v15-turn-summary{background:#12382d;color:#9ee7cf;border-color:#276b59}
+  .round.v15-loss .v15-turn-summary{background:#3a1d20;color:#fecaca;border-color:#7f2b34}
+  .round.v15-draw .v15-turn-summary{background:#3a2d12;color:#fde68a;border-color:#7c5d16}
+}
