@@ -9,6 +9,15 @@ header{padding-right:118px!important}
 .event-dialog-close-v14{position:absolute;top:14px;right:14px;width:38px;height:38px;min-height:38px;padding:0;border:0;border-radius:12px;background:var(--soft);color:var(--text);font-size:24px;line-height:1;cursor:pointer;z-index:3}
 .event-dialog-close-v14:hover{filter:brightness(.97)}
 .app-version-v14{margin:-2px 4px 0;text-align:right;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.04em;opacity:.72;user-select:none}
+
+/* V15.3.4: desktop competition header uses a wider text block so it wraps naturally to ~2 lines. */
+@media(min-width:681px){
+  .listhead{align-items:center!important}
+  .listhead>div:first-child{flex:0 0 455px!important;min-width:455px!important;max-width:455px!important}
+  .listhead>div:first-child .hint{line-height:1.55!important}
+  .listhead>select{flex:1 1 auto!important;width:auto!important;min-width:220px!important;max-width:none!important}
+}
+
 @media(max-width:680px){
   header{padding-right:104px!important}
   .quick-add-v14{top:14px;right:58px;width:42px;height:42px;min-height:42px}.quick-add-v14 svg{width:22px;height:22px}
