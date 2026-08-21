@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V14.1';
+const VERSION='V14.2';
 const $=(s,r=document)=>r.querySelector(s);
 
 function openDialog(dlg){
@@ -43,16 +43,14 @@ function initTournamentDialog(){
   close.addEventListener('click',()=>dlg.close());
   dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
 
-  // Existing edit buttons stop bubbling, so capture first and open after app.js fills the form.
   document.addEventListener('click',e=>{
     if(e.target.closest?.('.event-card .edit'))setTimeout(()=>openDialog(dlg),0);
   },true);
 
-  // Desktop save/update: close after the existing app reports success.
   const msg=document.getElementById('msg');
   if(msg){
     new MutationObserver(()=>{
-      if(dlg.open&&msg.classList.contains('ok')&&msg.textContent.trim())setTimeout(()=>{if(dlg.open)dlg.close()},350);
+      if(dlg.open&&msg.classList.contains('ok')&&msg.textContent.trim())setTimeout(()=>{if(dlg.open)dlg.close()},120);
     }).observe(msg,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['class']});
   }
 }
