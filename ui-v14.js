@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V15.1.6';
+const VERSION='V15.2';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -25,10 +25,19 @@ function loadV143Assets(){
 
 function loadV1515Fixes(){
   if(!document.querySelector('link[data-v1515]')){
-    const link=document.createElement('link');link.rel='stylesheet';link.href='./v15.1.5.css?v=15.1.5';link.dataset.v1515='1';document.head.append(link);
+    const link=document.createElement('link');link.rel='stylesheet';link.href='./v15.1.5.css?v=15.1.5';link.dataset.v1515='1';document.head.appendChild(link);
   }
   if(!document.querySelector('script[data-v1515]')){
-    const s=document.createElement('script');s.src='./v15.1.5.js?v=15.1.5';s.dataset.v1515='1';document.body.append(s);
+    const s=document.createElement('script');s.src='./v15.1.5.js?v=15.1.5';s.dataset.v1515='1';document.body.appendChild(s);
+  }
+}
+
+function loadV152Assets(){
+  if(!document.querySelector('link[data-v152]')){
+    const link=document.createElement('link');link.rel='stylesheet';link.href='./v15.2.css?v=15.2';link.dataset.v152='1';document.head.appendChild(link);
+  }
+  if(!document.querySelector('script[data-v152]')){
+    const s=document.createElement('script');s.src='./v15.2.js?v=15.2';s.dataset.v152='1';document.body.appendChild(s);
   }
 }
 
@@ -96,6 +105,6 @@ function initVersion(){
   v.textContent=VERSION;v.title='目前版本 '+VERSION;
 }
 
-function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();initTournamentDialog();initVersion()}
+function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();initTournamentDialog();initVersion()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
