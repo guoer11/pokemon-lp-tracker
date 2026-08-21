@@ -1,0 +1,65 @@
+/* V15: compact collapsible battle report */
+.report{--v15-win:#e9fbf2;--v15-loss:#fff0f0;--v15-draw:#fff8e6;--v15-line:#e6ebf2}
+.v15-report-tools{display:flex;justify-content:flex-end;gap:6px;margin:-4px 0 10px;flex-wrap:wrap}
+.v15-tool{min-height:30px;padding:5px 9px;border:1px solid var(--border);border-radius:9px;background:var(--card2);color:var(--muted);font-size:11px;font-weight:800;cursor:pointer}
+.v15-tool:hover{color:var(--blue);border-color:#93c5fd}
+.rounds{gap:6px!important}
+.round{display:block!important;padding:0!important;border:1px solid var(--border)!important;border-radius:11px!important;background:var(--card)!important;overflow:visible!important;min-width:0}
+.round-summary-v15{position:relative;width:100%;min-height:54px;display:grid;grid-template-columns:52px minmax(0,1fr) auto 20px;align-items:center;gap:8px;padding:6px 9px;border:0!important;border-radius:10px;background:var(--card2)!important;color:var(--text);text-align:left;cursor:pointer;box-shadow:none!important}
+.round.v15-win>.round-summary-v15{background:var(--v15-win)!important}
+.round.v15-loss>.round-summary-v15{background:var(--v15-loss)!important}
+.round.v15-draw>.round-summary-v15{background:var(--v15-draw)!important}
+.round-summary-v15:hover{filter:brightness(.99)}
+.v15-round-no{font-size:13px;font-weight:900;color:var(--muted);text-align:center}
+.round.v15-win .v15-round-no,.round.v15-win .v15-result-summary strong{color:#07805f}
+.round.v15-loss .v15-round-no,.round.v15-loss .v15-result-summary strong{color:#dc2626}
+.round.v15-draw .v15-round-no,.round.v15-draw .v15-result-summary strong{color:#a16207}
+.v15-deck-summary{display:flex;align-items:center;gap:8px;min-width:0}
+.v15-pokemon-pair{display:flex;align-items:center;min-width:0;flex:0 0 auto}
+.v15-pokemon-pair:empty{display:none}
+.v15-pokemon-pair img{width:34px;height:34px;object-fit:contain;margin-right:-4px;filter:drop-shadow(0 1px 1px #0001)}
+.v15-pokemon-pair img+img{margin-left:1px}
+.v15-deck-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:800}
+.v15-result-summary{display:flex;align-items:baseline;justify-content:flex-end;gap:4px;min-width:42px;text-align:right}
+.v15-result-summary strong{font-size:16px;font-weight:950;color:var(--muted)}
+.v15-result-summary small{font-size:10px;font-weight:900;color:var(--muted)}
+.v15-chevron{font-size:17px;color:var(--muted);transform:rotate(0deg);transition:transform .16s ease;text-align:center}
+.round.v15-open>.round-summary-v15 .v15-chevron{transform:rotate(180deg)}
+.round-detail-v15{display:none!important;padding:10px;border-top:1px solid var(--v15-line);background:var(--card);border-radius:0 0 10px 10px;min-width:0}
+.round.v15-open>.round-detail-v15{display:grid!important}
+.round:not(.bo3)>.round-detail-v15{grid-template-columns:60px 126px 94px minmax(180px,1fr);gap:8px;align-items:center}
+.round.bo3>.round-detail-v15{grid-template-columns:64px minmax(0,1fr);gap:8px;align-items:center}
+.round-detail-v15>div:first-child{background:linear-gradient(145deg,#dbeafe,#eef6ff)!important;border:1px solid #bfdbfe!important;box-shadow:inset 0 1px 0 #fff,0 2px 8px #2563eb12!important;border-radius:12px;padding:8px;text-align:center}
+.round.bo3>.round-detail-v15>.bo3-overall{grid-column:2!important;grid-row:1!important}
+.round.bo3>.round-detail-v15>.opponent-search{grid-column:1/-1!important;grid-row:2!important}
+.round.bo3>.round-detail-v15>.bo3-games{grid-column:1/-1!important;grid-row:3!important}
+.round.bo3>.round-detail-v15>.round-extra{grid-column:1/-1!important;grid-row:4!important}
+.v15-add-round{width:100%!important;min-height:46px!important;border:1px dashed #cbd5e1!important;background:var(--card2)!important;color:var(--text)!important;border-radius:11px!important;font-size:14px!important;font-weight:850!important}
+.report>.actions:has(.v15-add-round){display:block!important;margin-top:10px!important}
+.v15-share-mode .round-detail-v15,.v15-share-mode .deck-controls,.v15-share-mode .new-own-deck,.v15-share-mode .deck-delete-v13,.v15-share-mode .report>.actions{display:none!important}
+.v15-share-mode .v15-report-tools .v15-expand,.v15-share-mode .v15-report-tools .v15-collapse{display:none!important}
+.v15-share-mode .v15-report-tools{margin-bottom:8px}
+.v15-share-mode .v15-share{color:var(--blue);border-color:#93c5fd;background:#eff6ff}
+.v15-share-mode .round-summary-v15{cursor:default}
+.v15-share-mode .v15-chevron{visibility:hidden}
+.v15-share-mode .deck-hero{padding:8px 10px!important;margin-bottom:10px!important}
+@media(max-width:680px){
+  .report{padding:10px!important}
+  .report-head{margin-bottom:8px!important}
+  .v15-report-tools{justify-content:flex-start;margin:0 0 8px;gap:5px}
+  .v15-tool{font-size:10px;padding:4px 7px;min-height:28px}
+  .round-summary-v15{grid-template-columns:38px minmax(0,1fr) auto 16px;gap:5px;min-height:50px;padding:5px 7px}
+  .v15-round-no{font-size:12px}
+  .v15-pokemon-pair img{width:31px;height:31px}
+  .v15-deck-name{font-size:12px}
+  .v15-result-summary{min-width:36px}.v15-result-summary strong{font-size:15px}.v15-result-summary small{font-size:9px}
+  .round-detail-v15{padding:8px}
+  .round:not(.bo3)>.round-detail-v15{grid-template-columns:64px minmax(122px,1.2fr) minmax(86px,.8fr);gap:7px}
+  .round:not(.bo3)>.round-detail-v15>.result-segment{grid-column:2!important;grid-row:1!important}
+  .round:not(.bo3)>.round-detail-v15>.turn-segment{grid-column:3!important;grid-row:1!important}
+  .round:not(.bo3)>.round-detail-v15>.opponent-search{grid-column:1/-1!important;grid-row:2!important}
+  .round:not(.bo3)>.round-detail-v15>.round-extra{grid-column:1/-1!important;grid-row:3!important}
+  .round.bo3>.round-detail-v15{grid-template-columns:64px minmax(0,1fr);gap:7px}
+  .v15-add-round{min-height:44px!important}
+}
+@media(prefers-color-scheme:dark){.report{--v15-win:#0d3329;--v15-loss:#3b191c;--v15-draw:#3a2d12;--v15-line:#2d3748}.v15-share-mode .v15-share{background:#172b4d}}
