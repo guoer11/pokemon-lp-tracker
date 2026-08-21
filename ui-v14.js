@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V15.3.1';
+const VERSION='V15.3.2';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -67,7 +67,8 @@ function initTournamentDialog(){
   const close=document.createElement('button');
   close.type='button';
   close.className='event-dialog-close-v14';
-  close.setAttribute('aria-label','關閉');
+  close.setAttribute('aria-label','取消');
+  close.title='取消';
   close.textContent='×';
 
   panel.parentNode.insertBefore(dlg,panel);
@@ -86,7 +87,9 @@ function initTournamentDialog(){
     openDialog(dlg);
   });
   close.addEventListener('click',()=>dlg.close());
-  dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+
+  // Keep the form open while editing/creating. Backdrop clicks and Esc no longer close it.
+  dlg.addEventListener('cancel',e=>e.preventDefault());
 
   document.addEventListener('click',e=>{
     if(e.target.closest?.('.event-card .edit'))setTimeout(()=>openDialog(dlg),0);
