@@ -6,21 +6,21 @@
 <meta name="theme-color" content="#172554">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="WSC LP">
+<meta name="apple-mobile-web-app-title" content="寶可夢比賽記錄">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="stylesheet" href="./style.css?v=13">
-<title>2026-2027 WSC LP 計分</title>
+<title>2026-2027 台灣寶可夢卡牌比賽記錄</title>
 <style>
 .opponent-search{position:relative;min-width:0}.opponent-input-wrap{display:flex;align-items:center;gap:8px}.opp-thumb{width:42px;height:42px;border-radius:9px;object-fit:contain;background:var(--soft);flex:0 0 auto}.opp-fallback{display:flex;align-items:center;justify-content:center;color:var(--blue);font-weight:900}.opponent-results{position:absolute;z-index:20;left:50px;right:0;top:48px;max-height:250px;overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--card);box-shadow:0 10px 30px #0002}.opp-result{width:100%;display:flex;align-items:center;gap:9px;padding:7px 9px;border:0;border-bottom:1px solid var(--border);background:var(--card);color:var(--text);text-align:left;cursor:pointer}.opp-result:last-child{border-bottom:0}.opp-result:hover{background:var(--soft)}.opp-result img{width:42px;height:42px;object-fit:contain}.opp-result b,.opp-result small{display:block}.opp-result small{color:var(--muted);font-size:11px}.round-format{font-size:11px;color:var(--muted);font-weight:800}.worldbadge{background:#ede9fe;color:#5b21b6}.formatbadge{background:#ecfdf3;color:#067647}.score.world strong{font-size:24px}.score.world span{font-size:10px;color:var(--muted)}
 </style>
 <link rel="stylesheet" href="./fixes.css?v=13">
 <link rel="stylesheet" href="./mobile-v9.css?v=13">
 <link rel="stylesheet" href="./battle-v11.css?v=13">
-<link rel="stylesheet" href="./v13.css?v=13">
+<link rel="stylesheet" href="./v13.css?v=13.5">
 </head>
 <body>
 <div class="app">
-<header><p class="eyebrow">2026–2027 TCG</p><h1>2026-2027 WSC LP 計分</h1><p class="sub">Best 8 LP ＋ 比賽戰報紀錄</p></header>
+<header><p class="eyebrow">2026–2027 TCG</p><h1>2026-2027 台灣寶可夢卡牌比賽記錄</h1><p class="sub">Best 8 LP ＋ 比賽戰報紀錄</p></header>
 <section class="auth">
   <div class="authinfo"><div id="authState" class="authstate">本機模式</div><div id="authEmail" class="authemail">尚未登入，紀錄只存在這台裝置</div><div id="syncState" class="sync">登入 Google 後可在手機與電腦同步</div></div>
   <div class="actions"><button id="login" class="btn primary" type="button">使用 Google 登入</button><button id="logout" class="btn" type="button" hidden>登出</button></div>
@@ -68,7 +68,8 @@
   </form>
 </dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./pokemon-picker.js?v=13.3"></script>
+<script src="./mobile-save-v13.5.js?v=13.5"></script>
+<script src="./pokemon-picker.js?v=13.5"></script>
 <script src="./app.js?v=13"></script>
 <script src="./opponent-history-core-v10.js?v=13"></script>
 <script src="./battle-v11.js?v=13"></script>
