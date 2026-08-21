@@ -1,6 +1,15 @@
 (()=>{'use strict';
-const VERSION='V14.2';
+const VERSION='V14.3';
 const $=(s,r=document)=>r.querySelector(s);
+
+function loadV143Assets(){
+  if(!document.querySelector('link[data-v143]')){
+    const link=document.createElement('link');link.rel='stylesheet';link.href='./ui-v14.3.css?v=14.3';link.dataset.v143='1';document.head.append(link);
+  }
+  if(!document.querySelector('script[data-v143]')){
+    const s=document.createElement('script');s.src='./ui-v14.3.js?v=14.3';s.dataset.v143='1';document.body.append(s);
+  }
+}
 
 function openDialog(dlg){
   if(!dlg)return;
@@ -56,10 +65,12 @@ function initTournamentDialog(){
 }
 
 function initVersion(){
-  const app=$('.app');if(!app||$('.app-version-v14',app))return;
-  const v=document.createElement('div');v.className='app-version-v14';v.textContent=VERSION;v.title='目前版本 '+VERSION;app.append(v);
+  const app=$('.app');if(!app)return;
+  let v=$('.app-version-v14',app);
+  if(!v){v=document.createElement('div');v.className='app-version-v14';app.append(v)}
+  v.textContent=VERSION;v.title='目前版本 '+VERSION;
 }
 
-function init(){initTournamentDialog();initVersion()}
+function init(){loadV143Assets();initTournamentDialog();initVersion()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
