@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V15.3';
+const VERSION='V15.3.1';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -43,7 +43,7 @@ function loadV152Assets(){
 
 function loadV153Assets(){
   if(!document.querySelector('script[data-v153]')){
-    const s=document.createElement('script');s.src='./v15.3.js?v=15.3';s.dataset.v153='1';document.body.appendChild(s);
+    const s=document.createElement('script');s.src='./v15.3.js?v=15.3.1';s.dataset.v153='1';document.body.appendChild(s);
   }
 }
 
