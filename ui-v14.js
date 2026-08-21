@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V5.3.5';
+const VERSION='V5.4';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -45,6 +45,21 @@ function loadV153Assets(){
   if(!document.querySelector('script[data-v153]')){
     const s=document.createElement('script');s.src='./v15.3.js?v=15.3.1';s.dataset.v153='1';document.body.appendChild(s);
   }
+}
+
+function loadV54Assets(){
+  if(!document.querySelector('link[data-v54]')){
+    const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.4.css?v=5.4';link.dataset.v54='1';document.head.appendChild(link);
+  }
+}
+
+function initMixedOption(){
+  const sel=document.getElementById('matchFormat');
+  if(!sel||sel.querySelector('option[value="mixed"]'))return;
+  const opt=document.createElement('option');
+  opt.value='mixed';
+  opt.textContent='混合（每輪設定）';
+  sel.appendChild(opt);
 }
 
 function openDialog(dlg){
@@ -119,6 +134,6 @@ function initVersion(){
   v.textContent=VERSION;v.title='目前版本 '+VERSION;
 }
 
-function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();loadV153Assets();initTournamentDialog();initCompetitionHint();initVersion()}
+function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();loadV153Assets();loadV54Assets();initMixedOption();initTournamentDialog();initCompetitionHint();initVersion()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
