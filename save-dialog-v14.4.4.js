@@ -2,7 +2,7 @@
 if(window.__pokemonSaveDialogV1444)return;
 window.__pokemonSaveDialogV1444=true;
 
-let pending=false,beforeCount=0,wasEdit=false;
+let pending=false,wasEdit=false;
 const $=id=>document.getElementById(id);
 
 function getDialog(){return $('eventDialogV14')}
@@ -24,7 +24,6 @@ function init(){
       return;
     }
     pending=true;
-    beforeCount=list.children.length;
     wasEdit=btn.textContent.trim()==='儲存修改';
 
     // Synchronous validation errors do not enter a busy state; release the guard.
@@ -33,13 +32,13 @@ function init(){
     },0);
   },true);
 
-  // New event render happens immediately after a successful save on PC/local mode.
+  // app.js rebuilds the competition list only after a successful save/update.
+  // Close for BOTH new and edited events; edit mode does not change the item count.
   new MutationObserver(()=>{
-    if(pending&&!wasEdit&&list.children.length!==beforeCount)closeSavedDialog();
+    if(pending)closeSavedDialog();
   }).observe(list,{childList:true});
 
-  // Successful edit calls resetForm(), which restores these labels.
-  // This is a more reliable signal than waiting for the status message on Safari/Chrome.
+  // Successful edit also calls resetForm(), which restores these labels.
   const detectEditSuccess=()=>{
     if(!pending||!wasEdit)return;
     const resetDone=btn.textContent.trim()==='儲存比賽'&&(!title||title.textContent.trim()==='新增比賽');
@@ -48,7 +47,7 @@ function init(){
   new MutationObserver(detectEditSuccess).observe(btn,{childList:true,characterData:true,subtree:true});
   if(title)new MutationObserver(detectEditSuccess).observe(title,{childList:true,characterData:true,subtree:true});
 
-  // Success/failure message fallback for both new and edited events.
+  // Success/failure message fallback.
   new MutationObserver(()=>{
     if(!pending)return;
     if(msg.classList.contains('ok')&&msg.textContent.trim()){
