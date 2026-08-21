@@ -13,13 +13,10 @@ function pokemonImageFromInput(input){
   return'';
 }
 function summaryImages(row){
-  const out=[];
-  const primary=qs('.primary-thumb-wrap img,.opponent-input-wrap>.opp-thumb:not(.opp-fallback)',row);
-  const input=qs('.r-opponent',row);
-  const psrc=primary?.getAttribute('src')||pokemonImageFromInput(input);
-  if(psrc)out.push({src:psrc,alt:input?.dataset.pokemonName||'主打手'});
-  const secondary=qs('.secondary-picker-btn.has-secondary img',row);
-  if(secondary?.src)out.push({src:secondary.src,alt:secondary.alt||'副打手'});
+  const out=[],seen=new Set(),detail=qs(':scope>.round-detail-v15',row)||row,input=qs('.r-opponent',detail);
+  const add=(src,alt)=>{src=String(src||'').trim();if(!src||seen.has(src))return;seen.add(src);out.push({src,alt:alt||'對手寶可夢'})};
+  qsa('.primary-thumb-wrap img,.opponent-input-wrap img,.secondary-picker-btn img',detail).forEach(img=>add(img.currentSrc||img.getAttribute('src'),img.alt));
+  if(!out.length)add(pokemonImageFromInput(input),input?.dataset.pokemonName||'主打手');
   return out.slice(0,2);
 }
 function summaryResult(row){
@@ -64,7 +61,7 @@ function applyOpen(row){
 function updateSummary(row){
   const summary=buildSummary(row),detail=ensureDetail(row);
   if(!detail)return;
-  const no=roundNumber(row),name=(qs('.r-opponent',row)?.value||'').trim(),images=summaryImages(row),r=summaryResult(row);
+  const no=roundNumber(row),name=(qs('.r-opponent',detail)?.value||'').trim(),images=summaryImages(row),r=summaryResult(row);
   const key=JSON.stringify([no,name,images.map(x=>x.src),r.result,r.main,r.small]);
   if(summary.dataset.summaryKey!==key){
     summary.dataset.summaryKey=key;
@@ -82,6 +79,7 @@ function updateSummary(row){
 function decorateRound(row){
   if(!row?.matches?.('.round'))return;
   buildSummary(row);ensureDetail(row);updateSummary(row);
+  setTimeout(()=>{if(row.isConnected)updateSummary(row)},120);
   const id=matchId(row);
   if(pendingAdd&&id&&!pendingAdd.before.has(id)){
     openRounds.add(id);pendingAdd=null;applyOpen(row);
@@ -123,8 +121,8 @@ document.addEventListener('change',e=>{const row=e.target.closest?.('.round');if
 document.addEventListener('click',e=>{
   const add=e.target.closest?.('.add-round');
   if(add){const report=add.closest('.report');pendingAdd={before:new Set(qsa('.round',report).map(matchId).filter(Boolean)),report};return}
-  const choice=e.target.closest?.('.seg-btn,.bo3-choice,.secondary-picker-btn,[data-history-id]');
-  if(choice){const row=choice.closest('.round');if(row)setTimeout(()=>updateSummary(row),30)}
+  const choice=e.target.closest?.('.seg-btn,.bo3-choice,.secondary-picker-btn,[data-history-id],.opp-thumb');
+  if(choice){const row=choice.closest('.round');if(row)setTimeout(()=>updateSummary(row),80)}
 },true);
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&shareReport)setShareMode(shareReport,false)});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',decorateAll);else decorateAll();
