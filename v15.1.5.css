@@ -1,0 +1,7 @@
+/* V15.1.5: mobile round collapse control */
+.v15-mobile-collapse{display:none}
+@media(max-width:680px){
+  .round.v15-open>.round-detail-v15{position:relative!important;padding-top:52px!important}
+  .round.v15-open>.round-detail-v15>.v15-mobile-collapse{display:inline-flex!important;position:absolute!important;top:9px!important;right:10px!important;z-index:6!important;align-items:center!important;justify-content:center!important;min-height:34px!important;padding:6px 12px!important;border:1px solid #cbd5e1!important;border-radius:10px!important;background:var(--card2)!important;color:var(--muted)!important;font-size:12px!important;font-weight:900!important;line-height:1!important;box-shadow:0 1px 3px #0f172a0d!important;cursor:pointer!important}
+  .round.v15-open>.round-detail-v15>.v15-mobile-collapse:active{transform:scale(.97)}
+}
