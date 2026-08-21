@@ -2,6 +2,13 @@
 if(window.__pokemonOwnDeckCollapseV55)return;
 window.__pokemonOwnDeckCollapseV55=true;
 
+function promoteControls(hero){
+  const controls=hero.querySelector('.deck-copy .deck-controls')||hero.querySelector(':scope>.deck-controls');
+  if(!controls)return;
+  controls.classList.add('v551-controls-row');
+  if(controls.parentElement!==hero)hero.appendChild(controls);
+}
+
 function setOpen(hero,open){
   hero.classList.toggle('v55-open',!!open);
   const btn=hero.querySelector('.own-deck-toggle-v55');
@@ -13,7 +20,9 @@ function setOpen(hero,open){
 }
 
 function decorate(hero){
-  if(!hero||hero.dataset.v55==='1')return;
+  if(!hero)return;
+  promoteControls(hero);
+  if(hero.dataset.v55==='1')return;
   hero.dataset.v55='1';
   hero.classList.add('v55-collapsible');
   setOpen(hero,false);
