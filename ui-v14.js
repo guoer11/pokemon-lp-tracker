@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V15.2';
+const VERSION='V15.3';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -16,10 +16,10 @@ function ensureFavicon(){
 
 function loadV143Assets(){
   if(!document.querySelector('link[data-v143]')){
-    const link=document.createElement('link');link.rel='stylesheet';link.href='./ui-v14.3.css?v=14.3';link.dataset.v143='1';document.head.append(link);
+    const link=document.createElement('link');link.rel='stylesheet';link.href='./ui-v14.3.css?v=14.3';link.dataset.v143='1';document.head.appendChild(link);
   }
   if(!document.querySelector('script[data-v143]')){
-    const s=document.createElement('script');s.src='./ui-v14.3.js?v=14.3';s.dataset.v143='1';document.body.append(s);
+    const s=document.createElement('script');s.src='./ui-v14.3.js?v=14.3';s.dataset.v143='1';document.body.appendChild(s);
   }
 }
 
@@ -34,10 +34,16 @@ function loadV1515Fixes(){
 
 function loadV152Assets(){
   if(!document.querySelector('link[data-v152]')){
-    const link=document.createElement('link');link.rel='stylesheet';link.href='./v15.2.css?v=15.2';link.dataset.v152='1';document.head.appendChild(link);
+    const link=document.createElement('link');link.rel='stylesheet';link.href='./v15.2.css?v=15.3';link.dataset.v152='1';document.head.appendChild(link);
   }
   if(!document.querySelector('script[data-v152]')){
-    const s=document.createElement('script');s.src='./v15.2.js?v=15.2';s.dataset.v152='1';document.body.appendChild(s);
+    const s=document.createElement('script');s.src='./v15.2.js?v=15.3';s.dataset.v152='1';document.body.appendChild(s);
+  }
+}
+
+function loadV153Assets(){
+  if(!document.querySelector('script[data-v153]')){
+    const s=document.createElement('script');s.src='./v15.3.js?v=15.3';s.dataset.v153='1';document.body.appendChild(s);
   }
 }
 
@@ -105,6 +111,6 @@ function initVersion(){
   v.textContent=VERSION;v.title='目前版本 '+VERSION;
 }
 
-function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();initTournamentDialog();initVersion()}
+function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();loadV153Assets();initTournamentDialog();initVersion()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
