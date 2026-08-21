@@ -34,11 +34,13 @@ const leagueMap={
   '世界賽':'league-world-v138'
 };
 
-function placementText(place){
-  if(place>=1&&place<=4)return'TOP 4';
-  if(place>=5&&place<=8)return'TOP 8';
-  if(place>=9&&place<=16)return'TOP 16';
-  return'';
+function placementInfo(place){
+  if(place===1)return{label:'冠軍',cls:'placement-champion'};
+  if(place===2)return{label:'亞軍',cls:'placement-runnerup'};
+  if(place>=3&&place<=4)return{label:'TOP 4',cls:'placement-top4'};
+  if(place>=5&&place<=8)return{label:'TOP 8',cls:'placement-top8'};
+  if(place>=9&&place<=16)return{label:'TOP 16',cls:'placement-top16'};
+  return null;
 }
 
 function decorateCard(card){
@@ -52,11 +54,11 @@ function decorateCard(card){
       b.classList.add(cls);break;
     }
   });
-  const meta=$('.meta',card),m=meta?.textContent.match(/第\s*(\d+)\s*名/),place=m?Number(m[1]):0,text=placementText(place);
-  if(text){
+  const meta=$('.meta',card),m=meta?.textContent.match(/第\s*(\d+)\s*名/),place=m?Number(m[1]):0,info=placementInfo(place);
+  if(info){
     const top=document.createElement('span');
-    top.className='badge placement-badge-v138 placement-'+text.replace(' ','').toLowerCase();
-    top.textContent=text;
+    top.className='badge placement-badge-v138 '+info.cls;
+    top.textContent=info.label;
     badges.insertBefore(top,badges.firstChild);
   }
 }
@@ -64,8 +66,12 @@ function decorateAll(root=document){
   if(root.matches?.('.event-card'))decorateCard(root);
   root.querySelectorAll?.('.event-card').forEach(decorateCard);
 }
+function updateHint(){
+  const hint=$('.listhead .hint');
+  if(hint)hint.textContent='依最終名次顯示冠軍／亞軍／TOP 4／TOP 8／TOP 16；LP 總分仍取可計分賽事最高 8 場。點比賽卡片可展開／收起戰報。';
+}
 function init(){
-  compactAuth();decorateAll();
+  compactAuth();updateHint();decorateAll();
   const list=document.getElementById('list');
   if(list)new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes)if(n.nodeType===1)decorateAll(n)}).observe(list,{childList:true,subtree:true});
 }
