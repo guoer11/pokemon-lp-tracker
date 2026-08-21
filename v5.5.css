@@ -1,4 +1,4 @@
-/* V5.5: collapsible own-deck hero */
+/* V5.5/V5.5.1: collapsible own-deck hero */
 .deck-hero.v55-collapsible{
   position:relative;
   padding-right:54px!important;
@@ -12,8 +12,29 @@
   align-items:center!important;
 }
 .deck-hero.v55-collapsible:not(.v55-open) .deck-controls{display:none!important}
-.deck-hero.v55-collapsible.v55-open{align-items:flex-start!important}
-.deck-hero.v55-collapsible.v55-open .deck-controls{display:grid!important}
+.deck-hero.v55-collapsible.v55-open{
+  align-items:flex-start!important;
+  flex-wrap:wrap!important;
+}
+.deck-hero.v55-collapsible.v55-open>.deck-controls.v551-controls-row{
+  display:grid!important;
+  flex:0 0 100%!important;
+  width:100%!important;
+  grid-template-columns:minmax(0,1fr) auto auto!important;
+  gap:8px!important;
+  margin-top:4px!important;
+}
+.deck-hero.v55-collapsible.v55-open>.deck-controls.v551-controls-row select,
+.deck-hero.v55-collapsible.v55-open>.deck-controls.v551-controls-row .btn{
+  min-height:40px!important;
+  font-size:13px!important;
+}
+.deck-hero.v55-collapsible.v55-open>.deck-controls.v551-controls-row .deck-delete-v13{
+  min-width:40px!important;
+  width:40px!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
 .own-deck-toggle-v55{
   position:absolute;
   right:12px;
@@ -42,13 +63,39 @@
 .deck-hero.v55-collapsible:not(.v55-open) .deck-copy strong{font-size:16px}
 
 @media(max-width:680px){
-  .deck-hero.v55-collapsible{padding-right:48px!important}
+  .deck-hero.v55-collapsible{padding-right:46px!important}
   .deck-hero.v55-collapsible:not(.v55-open){
     min-height:72px;
     padding-top:9px!important;
     padding-bottom:9px!important;
   }
   .deck-hero.v55-collapsible:not(.v55-open) .own-attacker-btn{width:46px;height:46px}
+  .deck-hero.v55-collapsible.v55-open{gap:10px!important}
+  .deck-hero.v55-collapsible.v55-open>.deck-controls.v551-controls-row{
+    grid-template-columns:minmax(0,1fr) 42px!important;
+    gap:7px!important;
+    margin-top:0!important;
+  }
+  .deck-hero.v55-collapsible.v55-open>.deck-controls.v551-controls-row .own-deck{
+    grid-column:1/-1!important;
+    min-height:44px!important;
+    font-size:14px!important;
+  }
+  .deck-hero.v55-collapsible.v55-open>.deck-controls.v551-controls-row .new-own-deck{
+    grid-column:1!important;
+    min-width:0!important;
+    min-height:42px!important;
+    padding:7px 10px!important;
+    font-size:12px!important;
+    white-space:nowrap!important;
+  }
+  .deck-hero.v55-collapsible.v55-open>.deck-controls.v551-controls-row .deck-delete-v13{
+    grid-column:2!important;
+    width:42px!important;
+    min-width:42px!important;
+    min-height:42px!important;
+    margin:0!important;
+  }
   .own-deck-toggle-v55{right:8px;width:34px;height:34px;min-height:34px;font-size:19px}
   .deck-hero.v55-collapsible.v55-open .own-deck-toggle-v55{top:12px}
 }
