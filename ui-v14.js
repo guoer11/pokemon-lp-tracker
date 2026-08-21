@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V5.4.1';
+const VERSION='V5.5';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -50,6 +50,15 @@ function loadV153Assets(){
 function loadV54Assets(){
   if(!document.querySelector('link[data-v54]')){
     const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.4.css?v=5.4';link.dataset.v54='1';document.head.appendChild(link);
+  }
+}
+
+function loadV55Assets(){
+  if(!document.querySelector('link[data-v55]')){
+    const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.5.css?v=5.5';link.dataset.v55='1';document.head.appendChild(link);
+  }
+  if(!document.querySelector('script[data-v55]')){
+    const s=document.createElement('script');s.src='./v5.5.js?v=5.5';s.dataset.v55='1';document.body.appendChild(s);
   }
 }
 
@@ -134,6 +143,6 @@ function initVersion(){
   v.textContent=VERSION;v.title='目前版本 '+VERSION;
 }
 
-function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();loadV153Assets();loadV54Assets();initMixedOption();initTournamentDialog();initCompetitionHint();initVersion()}
+function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();loadV153Assets();loadV54Assets();loadV55Assets();initMixedOption();initTournamentDialog();initCompetitionHint();initVersion()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
