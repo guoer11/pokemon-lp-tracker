@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const VERSION='V5.7.1';
+const VERSION='V5.7.3';
 const $=(s,r=document)=>r.querySelector(s);
 
 function ensureFavicon(){
@@ -37,6 +37,10 @@ function loadV571Assets(){
   if(!document.querySelector('link[data-v571]')){const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.1.css?v=5.7.1';link.dataset.v571='1';document.head.appendChild(link)}
   if(!document.querySelector('script[data-v571]')){const s=document.createElement('script');s.src='./v5.7.1.js?v=5.7.1';s.dataset.v571='1';document.body.appendChild(s)}
 }
+function loadV573Assets(){
+  if(!document.querySelector('link[data-v573]')){const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.3.css?v=5.7.3';link.dataset.v573='1';document.head.appendChild(link)}
+  if(!document.querySelector('script[data-v573]')){const s=document.createElement('script');s.src='./v5.7.3.js?v=5.7.3';s.dataset.v573='1';document.body.appendChild(s)}
+}
 function initMixedOption(){const sel=document.getElementById('matchFormat');if(!sel||sel.querySelector('option[value="mixed"]'))return;const opt=document.createElement('option');opt.value='mixed';opt.textContent='混合（每輪設定）';sel.appendChild(opt)}
 function openDialog(dlg){if(!dlg)return;try{if(!dlg.open)dlg.showModal()}catch{dlg.setAttribute('open','')}setTimeout(()=>{const first=$('#date',dlg);first?.focus({preventScroll:true})},60)}
 function initTournamentDialog(){
@@ -50,6 +54,6 @@ function initTournamentDialog(){
 }
 function initCompetitionHint(){const hint=$('.listhead .hint');if(!hint)return;hint.innerHTML='<span class="competition-hint-line">依最終名次顯示冠軍／亞軍／TOP 4／TOP 8／TOP 16</span><span class="competition-hint-line">LP 總分仍取可計分賽事最高 8 場。點比賽卡片可展開／收起戰報。</span>'}
 function initVersion(){const app=$('.app');if(!app)return;let v=$('.app-version-v14',app);if(!v){v=document.createElement('div');v.className='app-version-v14';app.append(v)}v.textContent=VERSION;v.title='目前版本 '+VERSION}
-function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();loadV153Assets();loadV54Assets();loadV55Assets();loadV56Assets();loadV57Assets();loadV571Assets();initMixedOption();initTournamentDialog();initCompetitionHint();initVersion()}
+function init(){ensureFavicon();loadV143Assets();loadV1515Fixes();loadV152Assets();loadV153Assets();loadV54Assets();loadV55Assets();loadV56Assets();loadV57Assets();loadV571Assets();loadV573Assets();initMixedOption();initTournamentDialog();initCompetitionHint();initVersion()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
