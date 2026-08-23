@@ -1,7 +1,10 @@
 (()=>{'use strict';
 if(window.__pokemonV573)return;window.__pokemonV573=true;
-const VERSION='V5.7.5';
-function ensureStyle(){if(document.querySelector('link[data-v575]'))return;const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.5.css?v=5.7.5';link.dataset.v575='1';document.head.appendChild(link)}
+const VERSION='V5.7.6';
+function ensureStyle(){
+  if(!document.querySelector('link[data-v575]')){const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.5.css?v=5.7.5';link.dataset.v575='1';document.head.appendChild(link)}
+  if(!document.querySelector('link[data-v576]')){const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.6.css?v=5.7.6';link.dataset.v576='1';document.head.appendChild(link)}
+}
 function organizeAccount(){
   const account=document.querySelector('.v572-page-account');
   if(!account)return;
@@ -27,8 +30,18 @@ function organizeAccount(){
     [...bottom.childNodes].forEach(node=>{if(node===cloud||node===backupActions)return;node.remove()});
   }
 }
+function fixRecords(){
+  document.querySelectorAll('.event-card .meta').forEach(meta=>{
+    if(meta.querySelector('.event-record-nowrap'))return;
+    const text=meta.textContent||'';
+    const m=text.match(/^(.*?)(｜\s*\d+W\s+\d+L(?:\s+\d+D)?)$/);
+    if(!m)return;
+    meta.textContent=m[1];
+    const span=document.createElement('span');span.className='event-record-nowrap';span.textContent=m[2];meta.appendChild(span);
+  });
+}
 function fix(){
-  ensureStyle();organizeAccount();
+  ensureStyle();organizeAccount();fixRecords();
   const v=document.querySelector('.app-version-v14');
   if(v&&v.textContent!==VERSION){v.textContent=VERSION;v.title='目前版本 '+VERSION}
 }
