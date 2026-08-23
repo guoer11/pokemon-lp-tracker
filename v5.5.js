@@ -46,7 +46,7 @@ function decorate(hero){
 }
 
 function decorateAll(){document.querySelectorAll('.deck-hero').forEach(decorate)}
-function stampVersion(){const v=document.querySelector('.app-version-v14');if(v){v.textContent='V5.5.2';v.title='目前版本 V5.5.2'}}
+function stampVersion(){const v=document.querySelector('.app-version-v14');if(v&&(!v.textContent||/^V5\.5(?:\.|$)/.test(v.textContent))){v.textContent='V5.5.2';v.title='目前版本 V5.5.2'}}
 const observer=new MutationObserver(()=>decorateAll());
 observer.observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{decorateAll();setTimeout(stampVersion,0)});else{decorateAll();setTimeout(stampVersion,0)}
