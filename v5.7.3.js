@@ -1,6 +1,7 @@
 (()=>{'use strict';
 if(window.__pokemonV573)return;window.__pokemonV573=true;
 const VERSION='V5.7.5';
+function ensureStyle(){if(document.querySelector('link[data-v575]'))return;const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.5.css?v=5.7.5';link.dataset.v575='1';document.head.appendChild(link)}
 function organizeAccount(){
   const account=document.querySelector('.v572-page-account');
   if(!account)return;
@@ -27,7 +28,7 @@ function organizeAccount(){
   }
 }
 function fix(){
-  organizeAccount();
+  ensureStyle();organizeAccount();
   const v=document.querySelector('.app-version-v14');
   if(v&&v.textContent!==VERSION){v.textContent=VERSION;v.title='目前版本 '+VERSION}
 }
