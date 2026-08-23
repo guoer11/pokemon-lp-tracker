@@ -1,0 +1,9 @@
+/* V5.7.3: desktop navigation left aligned */
+@media(min-width:681px){
+  .v572-desktop-nav{
+    justify-content:flex-start!important;
+  }
+  .v572-desktop-nav .v572-add{
+    margin-left:0!important;
+  }
+}
