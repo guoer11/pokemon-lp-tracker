@@ -40,12 +40,29 @@ function fixRecords(){
     const span=document.createElement('span');span.className='event-record-nowrap';span.textContent=m[2];meta.appendChild(span);
   });
 }
+function enableAutoUpdate(){
+  if(!('serviceWorker' in navigator)||window.__pokemonAutoUpdateV576)return;
+  window.__pokemonAutoUpdateV576=true;
+  let reloading=false;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(reloading)return;
+    reloading=true;
+    window.location.reload();
+  });
+  window.addEventListener('load',async()=>{
+    try{
+      const reg=await navigator.serviceWorker.register('./sw.js?v=5.7.6-r2',{updateViaCache:'none'});
+      await reg.update();
+    }catch{}
+  });
+}
 function fix(){
   ensureStyle();organizeAccount();fixRecords();
   const v=document.querySelector('.app-version-v14');
   if(v&&v.textContent!==VERSION){v.textContent=VERSION;v.title='目前版本 '+VERSION}
 }
 function startGuard(){
+  enableAutoUpdate();
   fix();
   const root=document.querySelector('.app')||document.body;if(!root)return;
   const observer=new MutationObserver(()=>fix());observer.observe(root,{childList:true,characterData:true,subtree:true});
