@@ -1,0 +1,17 @@
+/* V5.7.1: mobile nav polish */
+@media(max-width:680px){
+  body.v57-ready::after{
+    content:"";
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:calc(88px + env(safe-area-inset-bottom));
+    background:var(--bg);
+    z-index:185;
+    pointer-events:none;
+  }
+  .v57-mobile-nav{z-index:190!important}
+  .v57-mobile-nav [data-v57-nav="account"] svg{fill:currentColor!important;stroke:none!important}
+  .v57-mobile-nav [data-v57-nav="account"]>span:last-child{display:block!important}
+}
