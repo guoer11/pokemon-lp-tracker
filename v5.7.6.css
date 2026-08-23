@@ -1,0 +1,2 @@
+/* V5.7.6: keep event W/L/D record together on mobile cards */
+.event-card .meta .event-record-nowrap{white-space:nowrap;display:inline-block}
