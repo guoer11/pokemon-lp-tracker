@@ -1,0 +1,12 @@
+/* V5.7.5: account page information sections */
+.v575-section{margin-top:14px;padding:16px;border:1px solid var(--border);border-radius:16px;background:var(--card2)}
+.v575-section-title{margin:0 0 12px;color:var(--text);font-size:16px;font-weight:900}
+.v575-help-list{display:grid;gap:10px;color:var(--muted);font-size:13px;line-height:1.65}
+.v575-help-item strong{color:var(--text);font-weight:850}
+.v572-page-account>.bottom.v575-backup-only{margin-top:14px!important}
+.v572-page-account>.bottom.v575-backup-only::before{content:'資料與備份'!important}
+.v572-page-account>.bottom.v575-backup-only>.v575-hide-help{display:none!important}
+@media(max-width:680px){
+  .v575-section{padding:15px 14px;border-radius:16px}
+  .v575-help-list{font-size:12px;gap:9px}
+}
