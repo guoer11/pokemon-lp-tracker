@@ -37,16 +37,15 @@ function cleanCardMeta(){
 }
 function syncFlag(row){
   const summary=qs(':scope>.round-summary-v15',row);if(!summary)return;
-  qs(':scope>.v15-result-summary>.v58-country-flag-summary',summary)?.remove();
   const deck=qs(':scope>.v15-deck-summary',summary);if(!deck)return;
-  let el=qs(':scope>.v58-country-flag-summary',deck);
+  qs(':scope>.v15-result-summary>.v58-country-flag-summary',summary)?.remove();
+  qs(':scope>.v15-deck-summary>.v58-country-flag-summary',summary)?.remove();
+  let el=qs(':scope>.v58-country-flag-summary',summary);
   const code=countryCache.get(String(row.dataset.match||''))||'',emoji=flag(code);
   if(!emoji){el?.remove();return}
   if(!el){el=document.createElement('span');el.className='v58-country-flag-summary'}
   el.textContent=emoji;el.title=code;el.setAttribute('aria-label','對手國家 '+code);
-  const pair=qs(':scope>.v15-pokemon-pair',deck);
-  if(pair){if(el.parentNode!==deck||el.nextSibling!==pair)deck.insertBefore(el,pair)}
-  else if(deck.firstChild!==el)deck.insertBefore(el,deck.firstChild);
+  if(el.parentNode!==summary||el.nextSibling!==deck)summary.insertBefore(el,deck);
 }
 function syncPreview(row){
   const input=qs('.v58-country-input',row),preview=qs('.v58-country-preview',row);if(!input||!preview)return;
