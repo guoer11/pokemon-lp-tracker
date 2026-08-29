@@ -89,10 +89,24 @@ function decorateRound(row){
 function setAll(report,open){
   qsa('.round',report).forEach(row=>{const id=matchId(row);if(!id)return;open?openRounds.add(id):openRounds.delete(id);applyOpen(row);updateSummary(row)});
 }
+function syncTopShareExit(report,on){
+  const card=report?.closest('.event-card'),main=card&&qs(':scope>.event-main',card);
+  if(!card||!main)return;
+  card.classList.toggle('v15-card-share-mode',on);
+  let exit=qs(':scope>.v15-share-exit-top',main);
+  if(!on){exit?.remove();return}
+  if(!exit){
+    exit=document.createElement('button');
+    exit.type='button';exit.className='v15-share-exit-top';exit.textContent='結束分享';
+    exit.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();setShareMode(report,false)});
+    main.appendChild(exit);
+  }
+}
 function setShareMode(report,on){
   report.classList.toggle('v15-share-mode',on);shareReport=on?report:null;
+  syncTopShareExit(report,on);
   if(on)setAll(report,false);
-  const b=qs('.v15-share',report);if(b)b.textContent=on?'結束分享模式':'分享模式';
+  const b=qs('.v15-share',report);if(b)b.textContent='分享模式';
   qsa('.round',report).forEach(applyOpen);
 }
 function decorateReport(report){
