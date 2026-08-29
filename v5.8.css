@@ -16,6 +16,7 @@
 .v58-world-round>.round-summary-v15>.v15-chevron{grid-column:4!important}
 .v58-world-round .v15-deck-name{min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important;line-height:1.2}
 .report-head .record{display:none!important}
+.report.v15-share-mode .record,.report.v15-share-mode .report-head .record{display:none!important;visibility:hidden!important}
 .v583-record{white-space:nowrap;font-size:inherit;font-weight:700}
 .v583-record-w{color:#07805f}.v583-record-l{color:#dc2626}.v583-record-d{color:#a16207}
 @media(max-width:680px){
