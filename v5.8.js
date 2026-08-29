@@ -17,13 +17,17 @@ function cleanCardMeta(){
   });
 }
 function syncFlag(row){
-  const box=qs(':scope>.round-summary-v15 .v15-result-summary',row);if(!box)return;
-  let el=qs(':scope>.v58-country-flag-summary',box);
+  const summary=qs(':scope>.round-summary-v15',row);if(!summary)return;
+  qs(':scope>.v15-result-summary>.v58-country-flag-summary',summary)?.remove();
+  const deck=qs(':scope>.v15-deck-summary',summary);if(!deck)return;
+  let el=qs(':scope>.v58-country-flag-summary',deck);
   const code=countryCache.get(String(row.dataset.match||''))||'',emoji=flag(code);
   if(!emoji){el?.remove();return}
-  if(!el){el=document.createElement('span');el.className='v58-country-flag-summary';box.appendChild(el)}
+  if(!el){el=document.createElement('span');el.className='v58-country-flag-summary'}
   el.textContent=emoji;el.title=code;el.setAttribute('aria-label','對手國家 '+code);
-  if(box.firstChild!==el)box.insertBefore(el,box.firstChild);
+  const name=qs(':scope>.v15-deck-name',deck);
+  if(name){if(el.parentNode!==deck||el.nextSibling!==name)deck.insertBefore(el,name)}
+  else if(el.parentNode!==deck)deck.appendChild(el);
 }
 function syncPreview(row){
   const input=qs('.v58-country-input',row),preview=qs('.v58-country-preview',row);if(!input||!preview)return;
