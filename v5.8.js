@@ -10,10 +10,12 @@ function flag(code){code=norm(code);if(!/^[A-Z]{2}$/.test(code))return'';return 
 function isWorldRow(row){return !!row?.closest('.event-card')?.querySelector('.worldbadge')}
 function cleanCardMeta(){
   qsa('.event-card .meta').forEach(meta=>{
-    const parts=String(meta.textContent||'').split('｜').map(x=>x.trim()).filter(Boolean);
+    const raw=String(meta.textContent||'').trim();
+    const parts=raw.split('｜').map(x=>x.trim()).filter(Boolean);
     if(parts.length<2)return;
-    const clean=parts.slice(0,2).join('｜');
-    if(meta.textContent.trim()!==clean)meta.textContent=clean;
+    const record=parts.slice(2).find(x=>/^\d+W\s+\d+L(?:\s+\d+D)?$/i.test(x))||'';
+    const clean=parts.slice(0,2).join('｜')+(record?' '+record:'');
+    if(raw!==clean)meta.textContent=clean;
   });
 }
 function syncFlag(row){
@@ -25,9 +27,9 @@ function syncFlag(row){
   if(!emoji){el?.remove();return}
   if(!el){el=document.createElement('span');el.className='v58-country-flag-summary'}
   el.textContent=emoji;el.title=code;el.setAttribute('aria-label','對手國家 '+code);
-  const name=qs(':scope>.v15-deck-name',deck);
-  if(name){if(el.parentNode!==deck||el.nextSibling!==name)deck.insertBefore(el,name)}
-  else if(el.parentNode!==deck)deck.appendChild(el);
+  const pair=qs(':scope>.v15-pokemon-pair',deck);
+  if(pair){if(el.parentNode!==deck||el.nextSibling!==pair)deck.insertBefore(el,pair)}
+  else if(deck.firstChild!==el)deck.insertBefore(el,deck.firstChild);
 }
 function syncPreview(row){
   const input=qs('.v58-country-input',row),preview=qs('.v58-country-preview',row);if(!input||!preview)return;
