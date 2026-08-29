@@ -1,4 +1,4 @@
-/* V5.8: Worlds opponent country + cleaner event card summary */
+/* V5.8.1: Worlds opponent country + cleaner event card summary */
 .v58-country-row{display:flex;align-items:center;gap:8px;margin-top:7px;padding:7px 9px;border:1px solid var(--border);border-radius:10px;background:var(--card2);box-sizing:border-box}
 .v58-country-label{font-size:11px;font-weight:850;color:var(--muted);white-space:nowrap}
 .v58-country-input{width:56px;min-width:56px;height:34px;padding:5px 7px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--text);font:inherit;font-size:13px;font-weight:900;text-align:center;text-transform:uppercase;box-sizing:border-box}
@@ -8,7 +8,8 @@
 .v58-country-help{min-width:0;color:var(--muted);font-size:10px;line-height:1.35}
 .v58-country-status{margin-left:auto;font-size:10px;font-weight:800;color:var(--muted);white-space:nowrap}
 .v58-country-status.ok{color:#07805f}.v58-country-status.err{color:#dc2626}
-.v58-country-flag-summary{font-style:normal;font-size:15px;line-height:1;flex:0 0 auto;margin-right:1px}
+.v58-country-flag-summary{font-style:normal;font-size:16px;line-height:1;flex:0 0 auto;margin:0 1px 0 0}
+.v58-world-round .v15-deck-summary{gap:6px}
 @media(max-width:680px){
   .v58-country-row{gap:6px;padding:6px 7px;margin-top:6px}
   .v58-country-label{font-size:10px}
@@ -16,7 +17,6 @@
   .v58-country-preview{width:23px;min-width:23px;font-size:17px}
   .v58-country-help{font-size:9px}
   .v58-country-status{display:none}
-  .v58-world-round:not(.bo3)>.round-summary-v15>.v15-result-summary{min-width:84px!important}
-  .v58-world-round.bo3>.round-summary-v15>.v15-result-summary{min-width:106px!important}
+  .v58-country-flag-summary{font-size:15px}
 }
 @media(prefers-color-scheme:dark){.v58-country-input.v58-invalid{background:#3a1d20}}
