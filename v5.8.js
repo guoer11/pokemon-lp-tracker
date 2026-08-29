@@ -37,15 +37,13 @@ function cleanCardMeta(){
 }
 function syncFlag(row){
   const summary=qs(':scope>.round-summary-v15',row);if(!summary)return;
-  const deck=qs(':scope>.v15-deck-summary',summary);if(!deck)return;
-  qs(':scope>.v15-result-summary>.v58-country-flag-summary',summary)?.remove();
-  qs(':scope>.v15-deck-summary>.v58-country-flag-summary',summary)?.remove();
-  let el=qs(':scope>.v58-country-flag-summary',summary);
+  const no=qs(':scope>.v15-round-no',summary);if(!no)return;
+  qsa('.v58-country-flag-summary',summary).forEach(el=>{if(el.parentNode!==no)el.remove()});
+  let el=qs(':scope>.v58-country-flag-summary',no);
   const code=countryCache.get(String(row.dataset.match||''))||'',emoji=flag(code);
   if(!emoji){el?.remove();return}
-  if(!el){el=document.createElement('span');el.className='v58-country-flag-summary'}
+  if(!el){el=document.createElement('span');el.className='v58-country-flag-summary';no.appendChild(el)}
   el.textContent=emoji;el.title=code;el.setAttribute('aria-label','對手國家 '+code);
-  if(el.parentNode!==summary||el.nextSibling!==deck)summary.insertBefore(el,deck);
 }
 function syncPreview(row){
   const input=qs('.v58-country-input',row),preview=qs('.v58-country-preview',row);if(!input||!preview)return;
