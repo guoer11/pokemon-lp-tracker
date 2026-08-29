@@ -4,6 +4,10 @@ let pendingAdd=null,shareReport=null,refreshQueued=false;
 const qs=(s,r=document)=>r.querySelector(s),qsa=(s,r=document)=>[...r.querySelectorAll(s)];
 const matchId=row=>String(row?.dataset.match||'');
 const roundNumber=row=>Number((qs('.round-no',row)?.textContent||'').replace(/\D/g,''))||0;
+function ensureShareFixStyle(){
+  if(document.querySelector('link[data-share-fix]'))return;
+  const link=document.createElement('link');link.rel='stylesheet';link.href='./share-fix.css?v=5.8.5-fix3';link.dataset.shareFix='1';document.head.appendChild(link);
+}
 
 function pokemonImageFromInput(input){
   if(!input)return'';
@@ -125,7 +129,7 @@ function decorateReport(report){
   if(add){add.textContent='＋ 新增一輪';add.classList.add('v15-add-round')}
   qsa('.round',report).forEach(decorateRound);
 }
-function decorateAll(){qsa('.report').forEach(decorateReport);qsa('.round').forEach(decorateRound)}
+function decorateAll(){ensureShareFixStyle();qsa('.report').forEach(decorateReport);qsa('.round').forEach(decorateRound)}
 function queueRefresh(){if(refreshQueued)return;refreshQueued=true;requestAnimationFrame(()=>{refreshQueued=false;decorateAll()})}
 
 const observer=new MutationObserver(()=>queueRefresh());
