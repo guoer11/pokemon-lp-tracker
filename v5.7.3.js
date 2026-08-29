@@ -1,6 +1,6 @@
 (()=>{'use strict';
 if(window.__pokemonV573)return;window.__pokemonV573=true;
-const VERSION='V5.8.2';
+const VERSION='V5.8.3';
 function ensureStyle(){
   if(!document.querySelector('link[data-v575]')){const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.5.css?v=5.7.5';link.dataset.v575='1';document.head.appendChild(link)}
   if(!document.querySelector('link[data-v576]')){const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.6.css?v=5.7.6';link.dataset.v576='1';document.head.appendChild(link)}
