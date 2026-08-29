@@ -11,11 +11,28 @@ function isWorldRow(row){return !!row?.closest('.event-card')?.querySelector('.w
 function cleanCardMeta(){
   qsa('.event-card .meta').forEach(meta=>{
     const raw=String(meta.textContent||'').trim();
-    const parts=raw.split('｜').map(x=>x.trim()).filter(Boolean);
+    const recordMatch=raw.match(/(\d+W\s+\d+L(?:\s+\d+D)?)\s*$/i);
+    const record=recordMatch?recordMatch[1]:'';
+    const base=(recordMatch?raw.slice(0,recordMatch.index):raw).trim().replace(/[｜\s]+$/,'');
+    const parts=base.split('｜').map(x=>x.trim()).filter(Boolean);
     if(parts.length<2)return;
-    const record=parts.slice(2).find(x=>/^\d+W\s+\d+L(?:\s+\d+D)?$/i.test(x))||'';
-    const clean=parts.slice(0,2).join('｜')+(record?' '+record:'');
-    if(raw!==clean)meta.textContent=clean;
+    const clean=parts.slice(0,2).join('｜');
+    const expected=clean+(record?' '+record:'');
+    if(meta.dataset.v583Meta===expected)return;
+    meta.dataset.v583Meta=expected;
+    meta.textContent=clean;
+    if(record){
+      meta.append(' ');
+      const box=document.createElement('span');box.className='v583-record';
+      const tokens=record.match(/\d+[WLD]/gi)||[];
+      tokens.forEach((token,i)=>{
+        if(i)box.append(' ');
+        const span=document.createElement('span');
+        span.className='v583-record-'+token.slice(-1).toLowerCase();
+        span.textContent=token.toUpperCase();box.appendChild(span);
+      });
+      meta.appendChild(box);
+    }
   });
 }
 function syncFlag(row){
