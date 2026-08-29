@@ -1,0 +1,12 @@
+/* Share-mode layout fix; visible app version remains V5.8.5 */
+.v15-share-mode .report-head,
+.v15-share-mode .v15-report-tools{display:none!important}
+.v15-share-mode{padding-top:10px!important}
+.v15-card-share-mode .rowactions{display:none!important}
+.v15-share-exit-top{position:absolute;right:8px;top:6px;z-index:6;min-height:30px;padding:5px 9px;border:1px solid #93c5fd;border-radius:9px;background:#eff6ff;color:var(--blue);font-size:11px;font-weight:850;cursor:pointer}
+.v15-share-exit-top:hover{filter:brightness(.98)}
+@media(max-width:680px){
+  .v15-share-mode{padding-top:8px!important}
+  .v15-share-exit-top{right:8px;top:6px;min-height:30px;padding:5px 8px;font-size:10px}
+}
+@media(prefers-color-scheme:dark){.v15-share-exit-top{background:#172b4d}}
