@@ -93,20 +93,23 @@
   .v58-world-round .v15-pokemon-pair{
     display:flex!important;
     align-items:center!important;
-    gap:3px!important;
+    gap:0!important;
     flex:0 0 auto!important;
     width:max-content!important;
     min-width:max-content!important;
     overflow:visible!important;
     margin:0!important
   }
-  .v58-world-round .v15-pokemon-pair img,.v58-world-round .v15-pokemon-pair img+img{
+  .v58-world-round .v15-pokemon-pair img{
     display:block!important;
     flex:0 0 27px!important;
     width:27px!important;
     min-width:27px!important;
     height:27px!important;
     margin:0!important
+  }
+  .v58-world-round .v15-pokemon-pair img+img{
+    margin-left:-3px!important
   }
 }
 @media(prefers-color-scheme:dark){.v58-country-input.v58-invalid{background:#3a1d20}}
