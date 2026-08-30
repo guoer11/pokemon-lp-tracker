@@ -11,10 +11,12 @@
 .v58-country-flag-summary{font-style:normal;font-size:16px;line-height:1;flex:0 0 auto;margin:0}
 .v58-world-round>.round-summary-v15{grid-template-columns:max-content minmax(0,1fr) auto 20px!important;gap:6px!important}
 .v58-world-round>.round-summary-v15>.v15-round-no{grid-column:1!important;display:flex!important;align-items:center!important;gap:4px!important;width:auto!important;min-width:0!important;white-space:nowrap!important;text-align:left!important}
-.v58-world-round>.round-summary-v15>.v15-deck-summary{grid-column:2!important;min-width:0!important;overflow:hidden!important;align-items:center!important;justify-content:flex-start!important;gap:5px!important}
+.v58-world-round>.round-summary-v15>.v15-deck-summary{grid-column:2!important;min-width:0!important;overflow:hidden!important;align-items:center!important;justify-content:flex-start!important;gap:7px!important}
 .v58-world-round>.round-summary-v15>.v15-result-summary{grid-column:3!important}
 .v58-world-round>.round-summary-v15>.v15-chevron{grid-column:4!important}
 .v58-world-round .v15-deck-name{min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important;line-height:1.2}
+.v58-world-round .v15-pokemon-pair{display:flex!important;align-items:center!important;gap:3px!important}
+.v58-world-round .v15-pokemon-pair img,.v58-world-round .v15-pokemon-pair img+img{margin:0!important}
 .report-head .record{display:none!important}
 .report.v15-share-mode .record,.report.v15-share-mode .report-head .record{display:none!important;visibility:hidden!important}
 .v583-record{white-space:nowrap;font-size:inherit;font-weight:700}
@@ -28,7 +30,7 @@
   .v58-country-status{display:none}
   .v58-country-flag-summary{font-size:15px}
 
-  /* Compact mobile Worlds summary: content-sized groups, no stretched middle track. */
+  /* Compact mobile Worlds summary: R + flag + sprites + deck name stay naturally grouped. */
   .v58-world-round>.round-summary-v15{
     display:flex!important;
     align-items:center!important;
@@ -55,21 +57,24 @@
     align-items:center!important;
     justify-content:flex-start!important;
     flex:0 1 auto!important;
+    width:auto!important;
     min-width:0!important;
     overflow:hidden!important;
     gap:6px!important;
     margin:0!important
   }
   .v58-world-round>.round-summary-v15>.v15-result-summary{
+    display:flex!important;
     flex:0 0 auto!important;
     margin:0 0 0 2px!important;
     width:auto!important;
-    min-width:84px!important;
+    min-width:0!important;
     justify-content:flex-start!important;
     text-align:left!important;
     white-space:nowrap!important
   }
   .v58-world-round>.round-summary-v15>.v15-chevron{
+    display:block!important;
     flex:0 0 14px!important;
     width:14px!important;
     margin-left:0!important
@@ -80,9 +85,10 @@
     white-space:nowrap!important;
     overflow:hidden!important;
     text-overflow:clip!important;
-    display:block!important
+    display:block!important;
+    margin-left:0!important
   }
-  .v58-world-round .v15-pokemon-pair{display:flex!important;flex:0 0 auto!important;min-width:0!important}
-  .v58-world-round .v15-pokemon-pair img{width:27px!important;height:27px!important}
+  .v58-world-round .v15-pokemon-pair{display:flex!important;align-items:center!important;gap:3px!important;flex:0 0 auto!important;min-width:0!important;margin:0!important}
+  .v58-world-round .v15-pokemon-pair img,.v58-world-round .v15-pokemon-pair img+img{width:27px!important;height:27px!important;margin:0!important}
 }
 @media(prefers-color-scheme:dark){.v58-country-input.v58-invalid{background:#3a1d20}}
