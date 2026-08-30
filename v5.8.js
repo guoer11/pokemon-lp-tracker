@@ -4,7 +4,7 @@ const qs=(s,r=document)=>r.querySelector(s),qsa=(s,r=document)=>[...r.querySelec
 const URL='https://ceobnyikrudlxasyjukg.supabase.co';
 const KEY='sb_publishable_6uVBALI1T3lMZoFEUiLK4g__R7gv0fz';
 const sb58=window.supabase?.createClient?window.supabase.createClient(URL,KEY):null;
-const countryCache=new Map(),loading=new Set();let queued=false;
+const countryCache=new Map(),countryDraft=new Map(),loading=new Set();let queued=false;
 function norm(v){return String(v||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,2)}
 function flag(code){code=norm(code);if(!/^[A-Z]{2}$/.test(code))return'';return String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0)))}
 function isWorldRow(row){return !!row?.closest('.event-card')?.querySelector('.worldbadge')}
@@ -61,11 +61,13 @@ function ensureCountryField(row){
     holder.innerHTML='<span class="v58-country-label">對手國家</span><input class="v58-country-input" inputmode="text" autocomplete="off" autocapitalize="characters" maxlength="2" placeholder="JP" aria-label="對手國家代碼"><span class="v58-country-preview" aria-hidden="true"></span><span class="v58-country-help">世界賽限定，輸入 JP／US／TW…</span><span class="v58-country-status"></span>';
     opp.appendChild(holder);
     const input=qs('.v58-country-input',holder);
-    input.addEventListener('input',()=>syncPreview(row));
+    input.addEventListener('input',()=>{const code=norm(input.value);input.value=code;countryDraft.set(id,code);syncPreview(row)});
     input.addEventListener('blur',()=>syncPreview(row));
   }
-  const input=qs('.v58-country-input',holder),cached=countryCache.get(id);
-  if(cached!==undefined&&document.activeElement!==input&&input.value!==cached){input.value=cached;syncPreview(row)}
+  const input=qs('.v58-country-input',holder),draft=countryDraft.get(id),cached=countryCache.get(id);
+  if(draft!==undefined){
+    if(document.activeElement!==input&&input.value!==draft){input.value=draft;syncPreview(row)}
+  }else if(cached!==undefined&&document.activeElement!==input&&input.value!==cached){input.value=cached;syncPreview(row)}
   syncFlag(row);
 }
 async function hydrate(){
@@ -94,7 +96,7 @@ document.addEventListener('click',e=>{
   const row=btn.closest('.round');if(!row||!isWorldRow(row)||!sb58)return;
   const id=String(row.dataset.match||''),input=qs('.v58-country-input',row);if(!id||!input)return;
   const code=norm(input.value),status=qs('.v58-country-status',row),old=countryCache.get(id)||'';
-  input.value=code;syncPreview(row);
+  input.value=code;countryDraft.set(id,code);syncPreview(row);
   if(code&&code.length!==2){if(status){status.textContent='請輸入2碼';status.className='v58-country-status err'};return}
   countryCache.set(id,code);syncFlag(row);
   setTimeout(async()=>{
@@ -102,9 +104,10 @@ document.addEventListener('click',e=>{
       const {data:{session}}=await sb58.auth.getSession();if(!session)throw new Error('not signed in');
       const {error}=await sb58.from('matches').update({opponent_country_code:code||null}).eq('id',id).eq('user_id',session.user.id);
       if(error)throw error;
+      countryDraft.delete(id);
       if(status&&status.isConnected){status.textContent='已儲存';status.className='v58-country-status ok';setTimeout(()=>{if(status.isConnected)status.textContent=''},1200)}
     }catch{
-      countryCache.set(id,old);if(status&&status.isConnected){status.textContent='國家未儲存';status.className='v58-country-status err'};queue();
+      countryCache.set(id,old);countryDraft.set(id,code);if(status&&status.isConnected){status.textContent='國家未儲存';status.className='v58-country-status err'};queue();
     }
   },0);
 },true);
