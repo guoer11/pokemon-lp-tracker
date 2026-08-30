@@ -90,13 +90,16 @@
     display:block!important;
     margin-left:0!important
   }
+  /* Reserve the same two-sprite slot even when there is no sub attacker, so every deck name starts at the same X position. */
   .v58-world-round .v15-pokemon-pair{
     display:flex!important;
     align-items:center!important;
+    justify-content:flex-start!important;
     gap:0!important;
-    flex:0 0 auto!important;
-    width:max-content!important;
-    min-width:max-content!important;
+    flex:0 0 51px!important;
+    width:51px!important;
+    min-width:51px!important;
+    max-width:51px!important;
     overflow:visible!important;
     margin:0!important
   }
