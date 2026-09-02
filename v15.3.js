@@ -23,15 +23,17 @@ new MutationObserver(queueTurns).observe(document.documentElement,{childList:tru
 document.addEventListener('change',e=>{const row=e.target.closest?.('.round:not(.bo3)');if(row)setTimeout(()=>syncBo1Turn(row),0)},true);
 document.addEventListener('click',e=>{const btn=e.target.closest?.('.round:not(.bo3) .turn-segment .seg-btn');if(btn){const row=btn.closest('.round');setTimeout(()=>syncBo1Turn(row),40)}},true);
 
-/* 2025-26 LP tables used provisionally for 2026-27 Ultra/Master Ball. */
+/* 2026-27 official Ultra Ball LP table; Master Ball temporarily keeps 2025-26 scoring. */
 function bandScore(rank,bands){
   if(!Number.isInteger(rank)||rank<1)return 0;
   for(const[a,b,score]of bands)if(rank>=a&&rank<=b)return score;
   return 0;
 }
 function ultraScore(participants,rank){
-  if(!Number.isInteger(participants)||participants<32||participants>1024||!Number.isInteger(rank)||rank<1||rank>participants)return 0;
-  const bands=[[1,1,100],[2,2,75],[3,4,50],[5,8,25],[9,16,20],[17,32,15],[33,64,10]];
+  if(!Number.isInteger(participants)||participants<1||participants>1024||!Number.isInteger(rank)||rank<1||rank>participants)return 0;
+  const bands=[[1,1,100],[2,2,75],[3,4,50],[5,8,25],[9,16,20]];
+  if(participants>=65)bands.push([17,32,15]);
+  if(participants>=129)bands.push([33,64,10]);
   if(participants>=257)bands.push([65,128,8]);
   if(participants>=513)bands.push([129,256,6]);
   return bandScore(rank,bands);
@@ -60,19 +62,24 @@ function syncLegacyScore(forceAuto=false){
   const manual=lp.dataset.manualOverride==='1';
   const actual=Math.max(0,Number(lp.value)||0);
   if(manual){
-    help.textContent='已手動調整 LP；自動預估 '+score+' LP（暫用 2025–26 規則）';
-    preview.innerHTML='目前輸入：<strong>'+actual+' LP</strong> <span class="legacy-score-note">（手動；自動預估 '+score+' LP）</span>';
+    if(league.value==='ultra'){
+      help.textContent='已手動調整 LP；自動預估 '+score+' LP（2026–27 高級球規則）';
+      preview.innerHTML='目前輸入：<strong>'+actual+' LP</strong> <span class="legacy-score-note">（手動；自動預估 '+score+' LP）</span>';
+    }else{
+      help.textContent='已手動調整 LP；自動預估 '+score+' LP（暫用 2025–26 大師球規則）';
+      preview.innerHTML='目前輸入：<strong>'+actual+' LP</strong> <span class="legacy-score-note">（手動；自動預估 '+score+' LP）</span>';
+    }
     return;
   }
   if(league.value==='ultra'){
     const p=Number(parts.value);
-    if(Number.isInteger(p)&&p>0&&p<32)help.textContent='暫用 2025–26 規則：31 人以下不發高級球 LP；可手動修改';
-    else if(Number.isInteger(p)&&p>1024)help.textContent='暫用 2025–26 規則；參加人數超出去年度表格範圍，可手動修改';
-    else help.textContent='暫用 2025–26 高級球 LP；自動帶入後仍可手動修改';
+    if(Number.isInteger(p)&&p>1024)help.textContent='2026–27 高級球官方表計至 1024 人；可手動修改';
+    else help.textContent='依 2026–27 高級球 LP 規則自動帶入；仍可手動修改';
+    preview.innerHTML='目前預估：<strong>'+score+' LP</strong> <span class="legacy-score-note">（2026–27 高級球規則，可手動修改）</span>';
   }else{
     help.textContent='暫用 2025–26 大師球 LP；自動帶入後仍可手動修改';
+    preview.innerHTML='目前預估：<strong>'+score+' LP</strong> <span class="legacy-score-note">（2025–26 大師球規則，可手動修改）</span>';
   }
-  preview.innerHTML='目前預估：<strong>'+score+' LP</strong> <span class="legacy-score-note">（2025–26 規則，可手動修改）</span>';
 }
 function prepareEditScore(){
   const lp=$('lp');if(!lp||!isLegacyLeague())return;
