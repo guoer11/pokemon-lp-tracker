@@ -1,4 +1,4 @@
-/* V5.8.8: Worlds flags + aligned desktop/mobile round summaries */
+/* V5.8.9: larger Worlds attacker thumbnails inspired by Limitless while preserving alignment */
 .v58-country-row{display:flex;align-items:center;gap:8px;margin-top:7px;padding:7px 9px;border:1px solid var(--border);border-radius:10px;background:var(--card2);box-sizing:border-box}
 .v58-country-label{font-size:11px;font-weight:850;color:var(--muted);white-space:nowrap}
 .v58-country-input{width:56px;min-width:56px;height:34px;padding:5px 7px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--text);font:inherit;font-size:13px;font-weight:900;text-align:center;text-transform:uppercase;box-sizing:border-box}
@@ -12,16 +12,16 @@
 .v58-flag-img{display:block;width:24px;height:17px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px #00000012}
 .v58-country-preview .v58-flag-img{width:28px;height:20px}
 
-/* Desktop Worlds rows: reserve two attacker slots so every deck name starts at the same X position. */
-.v58-world-round>.round-summary-v15{grid-template-columns:max-content minmax(0,1fr) auto 20px!important;gap:9px!important;min-height:60px!important;padding:8px 12px!important}
+/* Desktop Worlds rows: larger sprites, still reserve two attacker slots for aligned deck names. */
+.v58-world-round>.round-summary-v15{grid-template-columns:max-content minmax(0,1fr) auto 20px!important;gap:9px!important;min-height:66px!important;padding:8px 12px!important}
 .v58-world-round>.round-summary-v15>.v15-round-no{grid-column:1!important;display:flex!important;align-items:center!important;gap:6px!important;width:auto!important;min-width:0!important;white-space:nowrap!important;text-align:left!important;font-size:14px!important}
 .v58-world-round>.round-summary-v15>.v15-deck-summary{grid-column:2!important;display:flex!important;min-width:0!important;overflow:hidden!important;align-items:center!important;justify-content:flex-start!important;gap:8px!important}
 .v58-world-round>.round-summary-v15>.v15-result-summary{grid-column:3!important;gap:5px!important}
 .v58-world-round>.round-summary-v15>.v15-chevron{grid-column:4!important}
 .v58-world-round .v15-deck-name{min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important;line-height:1.2;font-size:15px!important;font-weight:850!important}
-.v58-world-round .v15-pokemon-pair{display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:0!important;flex:0 0 58px!important;width:58px!important;min-width:58px!important;max-width:58px!important;overflow:visible!important;margin:0!important}
-.v58-world-round .v15-pokemon-pair img{display:block!important;flex:0 0 31px!important;width:31px!important;min-width:31px!important;height:31px!important;margin:0!important}
-.v58-world-round .v15-pokemon-pair img+img{margin-left:-4px!important}
+.v58-world-round .v15-pokemon-pair{display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:0!important;flex:0 0 71px!important;width:71px!important;min-width:71px!important;max-width:71px!important;overflow:visible!important;margin:0!important}
+.v58-world-round .v15-pokemon-pair img{display:block!important;flex:0 0 38px!important;width:38px!important;min-width:38px!important;height:38px!important;margin:0!important}
+.v58-world-round .v15-pokemon-pair img+img{margin-left:-5px!important}
 .v58-world-round .v15-result-summary strong{font-size:18px!important}
 .v58-world-round .v15-result-summary small{font-size:10px!important}
 
@@ -40,7 +40,7 @@
   .v58-country-status{display:none}
   .v58-flag-img{width:22px;height:16px}
 
-  /* Compact mobile Worlds summary. */
+  /* Compact mobile Worlds summary with slightly larger sprites. */
   .v58-world-round>.round-summary-v15{
     display:flex!important;
     align-items:center!important;
@@ -48,7 +48,7 @@
     gap:5px!important;
     padding-left:7px!important;
     padding-right:6px!important;
-    min-height:52px!important;
+    min-height:56px!important;
     height:auto!important
   }
   .v58-world-round>.round-summary-v15>.v15-round-no{
@@ -106,22 +106,22 @@
     align-items:center!important;
     justify-content:flex-start!important;
     gap:0!important;
-    flex:0 0 51px!important;
-    width:51px!important;
-    min-width:51px!important;
-    max-width:51px!important;
+    flex:0 0 58px!important;
+    width:58px!important;
+    min-width:58px!important;
+    max-width:58px!important;
     overflow:visible!important;
     margin:0!important
   }
   .v58-world-round .v15-pokemon-pair img{
     display:block!important;
-    flex:0 0 27px!important;
-    width:27px!important;
-    min-width:27px!important;
-    height:27px!important;
+    flex:0 0 31px!important;
+    width:31px!important;
+    min-width:31px!important;
+    height:31px!important;
     margin:0!important
   }
-  .v58-world-round .v15-pokemon-pair img+img{margin-left:-3px!important}
+  .v58-world-round .v15-pokemon-pair img+img{margin-left:-4px!important}
   .v58-world-round .v15-result-summary strong{font-size:15px!important}
   .v58-world-round .v15-result-summary small{font-size:9px!important}
 }
