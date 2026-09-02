@@ -7,6 +7,16 @@ const sb58=window.supabase?.createClient?window.supabase.createClient(URL,KEY):n
 const countryCache=new Map(),countryDraft=new Map(),loading=new Set();let queued=false;
 function norm(v){return String(v||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,2)}
 function flag(code){code=norm(code);if(!/^[A-Z]{2}$/.test(code))return'';return String.fromCodePoint(...[...code].map(c=>127397+c.charCodeAt(0)))}
+function flagSrc(code){code=norm(code);return /^[A-Z]{2}$/.test(code)?`https://flagcdn.com/w40/${code.toLowerCase()}.png`:''}
+function paintFlag(target,code){
+  if(!target)return;
+  code=norm(code);const src=flagSrc(code);
+  if(!src){target.replaceChildren();target.dataset.code='';return}
+  if(target.dataset.code===code&&target.querySelector('img'))return;
+  const img=document.createElement('img');img.className='v58-flag-img';img.src=src;img.alt=code;img.loading='eager';img.decoding='async';
+  img.addEventListener('error',()=>{target.textContent=flag(code)||code},{once:true});
+  target.replaceChildren(img);target.dataset.code=code;
+}
 function isWorldRow(row){return !!row?.closest('.event-card')?.querySelector('.worldbadge')}
 function cleanCardMeta(){
   qsa('.event-card .meta').forEach(meta=>{
@@ -40,14 +50,14 @@ function syncFlag(row){
   const no=qs(':scope>.v15-round-no',summary);if(!no)return;
   qsa('.v58-country-flag-summary',summary).forEach(el=>{if(el.parentNode!==no)el.remove()});
   let el=qs(':scope>.v58-country-flag-summary',no);
-  const code=countryCache.get(String(row.dataset.match||''))||'',emoji=flag(code);
-  if(!emoji){el?.remove();return}
+  const code=countryCache.get(String(row.dataset.match||''))||'';
+  if(!flagSrc(code)){el?.remove();return}
   if(!el){el=document.createElement('span');el.className='v58-country-flag-summary';no.appendChild(el)}
-  el.textContent=emoji;el.title=code;el.setAttribute('aria-label','對手國家 '+code);
+  paintFlag(el,code);el.title=code;el.setAttribute('aria-label','對手國家 '+code);
 }
 function syncPreview(row){
   const input=qs('.v58-country-input',row),preview=qs('.v58-country-preview',row);if(!input||!preview)return;
-  const code=norm(input.value);input.value=code;preview.textContent=flag(code);
+  const code=norm(input.value);input.value=code;paintFlag(preview,code);
   input.classList.toggle('v58-invalid',!!code&&code.length!==2);
 }
 function ensureCountryField(row){
