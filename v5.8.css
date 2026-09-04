@@ -29,11 +29,12 @@
 .report.v15-share-mode .record,.report.v15-share-mode .report-head .record{display:none!important;visibility:hidden!important}
 .v583-record{white-space:nowrap;font-size:inherit;font-weight:700}
 .v583-record-w{color:#07805f}.v583-record-l{color:#dc2626}.v583-record-d{color:#a16207}
-.expand-tip.v592-record-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+.expand-tip.v592-record-row{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-top:10px;padding-right:116px}
 .v592-record{display:inline-flex;align-items:baseline;gap:5px;font-size:20px;font-weight:950;line-height:1;letter-spacing:.01em}
-.v592-toggle{margin-left:auto;color:var(--muted);font-size:11px;font-weight:750;white-space:nowrap}
+.v592-toggle{position:absolute;right:14px;bottom:14px;margin:0;color:var(--muted);font-size:11px;font-weight:750;white-space:nowrap;text-align:right}
 
 @media(max-width:680px){
+  .v592-toggle{right:10px;bottom:12px}
   .v58-country-row{gap:6px;padding:6px 7px;margin-top:6px}
   .v58-country-label{font-size:10px}
   .v58-country-input{width:50px;min-width:50px;height:32px;font-size:12px}
