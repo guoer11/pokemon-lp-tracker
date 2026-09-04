@@ -1,4 +1,4 @@
-/* V5.8.6: share mode uses top exit button and removes all legacy reserved header/tool spacing */
+/* V5.9.1: compact share mode with a prominent event record */
 .event-card.v15-card-share-mode .report.v15-share-mode>.report-head,
 .event-card.v15-card-share-mode .report.v15-share-mode>.v15-report-tools{
   display:none!important;
@@ -16,12 +16,14 @@
 .event-card.v15-card-share-mode .report.v15-share-mode>.deck-hero{
   margin-top:0!important;
 }
-.event-card.v15-card-share-mode .event-main .v583-record{
-  font-size:16px;
+.event-card.v15-card-share-mode .event-main .v592-record{
+  font-size:22px;
   line-height:1;
-  font-weight:900;
+  font-weight:950;
   letter-spacing:.01em;
 }
+.event-card.v15-card-share-mode .event-main .v592-record-row{justify-content:flex-start}
+.event-card.v15-card-share-mode .event-main .v592-toggle{display:none}
 .v15-card-share-mode .rowactions{display:none!important}
 .v15-share-exit-top{position:absolute;right:8px;top:6px;z-index:6;min-height:30px;padding:5px 9px;border:1px solid #93c5fd;border-radius:9px;background:#eff6ff;color:var(--blue);font-size:11px;font-weight:850;cursor:pointer}
 .v15-share-exit-top:hover{filter:brightness(.98)}
