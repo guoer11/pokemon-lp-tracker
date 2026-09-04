@@ -20,20 +20,21 @@ function paintFlag(target,code){
 function isWorldRow(row){return !!row?.closest('.event-card')?.querySelector('.worldbadge')}
 function cleanCardMeta(){
   qsa('.event-card .meta').forEach(meta=>{
+    const card=meta.closest('.event-card'),tip=card&&qs('.expand-tip',card);
+    const currentRecord=tip&&qs('.v592-record',tip);
     const raw=String(meta.textContent||'').trim();
     const recordMatch=raw.match(/(\d+W\s+\d+L(?:\s+\d+D)?)\s*$/i);
-    const record=recordMatch?recordMatch[1]:'';
+    const record=recordMatch?recordMatch[1]:String(currentRecord?.textContent||'').trim();
     const base=(recordMatch?raw.slice(0,recordMatch.index):raw).trim().replace(/[｜\s]+$/,'');
     const parts=base.split('｜').map(x=>x.trim()).filter(Boolean);
     if(parts.length<2)return;
     const clean=parts.slice(0,2).join('｜');
     const expected=clean+(record?' '+record:'');
-    if(meta.dataset.v583Meta===expected)return;
+    if(meta.dataset.v583Meta===expected&&currentRecord)return;
     meta.dataset.v583Meta=expected;
     meta.textContent=clean;
     if(record){
-      meta.append(' ');
-      const box=document.createElement('span');box.className='v583-record';
+      const box=document.createElement('span');box.className='v583-record v592-record';
       const tokens=record.match(/\d+[WLD]/gi)||[];
       tokens.forEach((token,i)=>{
         if(i)box.append(' ');
@@ -41,7 +42,12 @@ function cleanCardMeta(){
         span.className='v583-record-'+token.slice(-1).toLowerCase();
         span.textContent=token.toUpperCase();box.appendChild(span);
       });
-      meta.appendChild(box);
+      if(tip){
+        const toggleText=String(qs('.v592-toggle',tip)?.textContent||tip.textContent||'').trim();
+        tip.classList.add('v592-record-row');tip.replaceChildren(box);
+        const toggle=document.createElement('span');toggle.className='v592-toggle';toggle.textContent=toggleText;
+        tip.appendChild(toggle);
+      }else{meta.append(' ');meta.appendChild(box)}
     }
   });
 }
