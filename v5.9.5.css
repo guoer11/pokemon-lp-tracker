@@ -1,0 +1,38 @@
+/* V5.9.5: reserve two attacker slots so every BO1 deck name starts at the same position. */
+.round:not(.bo3)>.round-summary-v15 .v15-pokemon-pair,
+.round:not(.bo3)>.round-summary-v15 .v15-pokemon-pair:empty{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  flex:0 0 71px!important;
+  width:71px!important;
+  min-width:71px!important;
+  max-width:71px!important;
+  overflow:visible!important;
+  margin:0!important
+}
+.round:not(.bo3)>.round-summary-v15 .v15-pokemon-pair img{
+  display:block!important;
+  flex:0 0 38px!important;
+  width:38px!important;
+  min-width:38px!important;
+  height:38px!important;
+  margin:0!important
+}
+.round:not(.bo3)>.round-summary-v15 .v15-pokemon-pair img+img{margin-left:-5px!important}
+@media(max-width:680px){
+  .round:not(.bo3)>.round-summary-v15 .v15-pokemon-pair,
+  .round:not(.bo3)>.round-summary-v15 .v15-pokemon-pair:empty{
+    flex-basis:58px!important;
+    width:58px!important;
+    min-width:58px!important;
+    max-width:58px!important
+  }
+  .round:not(.bo3)>.round-summary-v15 .v15-pokemon-pair img{
+    flex-basis:31px!important;
+    width:31px!important;
+    min-width:31px!important;
+    height:31px!important
+  }
+  .round:not(.bo3)>.round-summary-v15 .v15-pokemon-pair img+img{margin-left:-4px!important}
+}
