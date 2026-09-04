@@ -22,7 +22,7 @@
   font-weight:950;
   letter-spacing:.01em;
 }
-.event-card.v15-card-share-mode .event-main .v592-record-row{justify-content:flex-start}
+.event-card.v15-card-share-mode .event-main .v592-record-row{justify-content:flex-start;padding-right:0}
 .event-card.v15-card-share-mode .event-main .v592-toggle{display:none}
 .v15-card-share-mode .rowactions{display:none!important}
 .v15-share-exit-top{position:absolute;right:8px;top:6px;z-index:6;min-height:30px;padding:5px 9px;border:1px solid #93c5fd;border-radius:9px;background:#eff6ff;color:var(--blue);font-size:11px;font-weight:850;cursor:pointer}
