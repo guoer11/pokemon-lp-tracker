@@ -1,4 +1,4 @@
-/* V5.8.9: larger Worlds attacker thumbnails inspired by Limitless while preserving alignment */
+/* V5.9.1: larger Worlds thumbnails plus a prominent event record row */
 .v58-country-row{display:flex;align-items:center;gap:8px;margin-top:7px;padding:7px 9px;border:1px solid var(--border);border-radius:10px;background:var(--card2);box-sizing:border-box}
 .v58-country-label{font-size:11px;font-weight:850;color:var(--muted);white-space:nowrap}
 .v58-country-input{width:56px;min-width:56px;height:34px;padding:5px 7px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--text);font:inherit;font-size:13px;font-weight:900;text-align:center;text-transform:uppercase;box-sizing:border-box}
@@ -29,6 +29,9 @@
 .report.v15-share-mode .record,.report.v15-share-mode .report-head .record{display:none!important;visibility:hidden!important}
 .v583-record{white-space:nowrap;font-size:inherit;font-weight:700}
 .v583-record-w{color:#07805f}.v583-record-l{color:#dc2626}.v583-record-d{color:#a16207}
+.expand-tip.v592-record-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+.v592-record{display:inline-flex;align-items:baseline;gap:5px;font-size:20px;font-weight:950;line-height:1;letter-spacing:.01em}
+.v592-toggle{margin-left:auto;color:var(--muted);font-size:11px;font-weight:750;white-space:nowrap}
 
 @media(max-width:680px){
   .v58-country-row{gap:6px;padding:6px 7px;margin-top:6px}
