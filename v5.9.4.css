@@ -1,0 +1,30 @@
+/* V5.9.4: align the BO1 opponent editor with BO3 and improve readability. */
+@media(min-width:681px){
+  .round:not(.bo3)>.round-detail-v15{
+    grid-template-columns:60px minmax(126px,1fr) minmax(94px,.75fr)!important;
+    grid-template-rows:auto auto auto!important;
+    align-items:center!important
+  }
+  .round:not(.bo3)>.round-detail-v15>div:first-child{grid-column:1!important;grid-row:1!important}
+  .round:not(.bo3)>.round-detail-v15>.result-segment{grid-column:2!important;grid-row:1!important}
+  .round:not(.bo3)>.round-detail-v15>.turn-segment{grid-column:3!important;grid-row:1!important}
+  .round:not(.bo3)>.round-detail-v15>.opponent-search{
+    grid-column:1/-1!important;
+    grid-row:2!important;
+    width:100%!important;
+    min-width:0!important;
+    box-sizing:border-box!important
+  }
+  .round:not(.bo3)>.round-detail-v15>.round-extra{
+    grid-column:1/-1!important;
+    grid-row:3!important;
+    width:100%!important;
+    min-width:0!important
+  }
+}
+.round:not(.bo3) .opponent-input-wrap .r-opponent{font-size:17px!important;font-weight:700!important}
+.round:not(.bo3)>.round-summary-v15 .v15-deck-name{font-size:15px!important;font-weight:850!important;line-height:1.2!important}
+@media(max-width:680px){
+  .round:not(.bo3)>.round-detail-v15>.opponent-search{width:100%!important;min-width:0!important;box-sizing:border-box!important}
+  .round:not(.bo3)>.round-summary-v15 .v15-deck-name{font-size:13px!important}
+}
