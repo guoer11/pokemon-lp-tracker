@@ -30,6 +30,7 @@ async function loadData(forceDefaults=false){
   if(!session){
     let events=[];try{events=JSON.parse(localStorage.getItem('pokemon-lp-events')||'[]')}catch{}
     data={events:Array.isArray(events)?events.map(e=>({...e,event_date:e.date,own_deck_id:e.ownDeckId||null,environment_id:e.environmentId||null,match_format:e.matchFormat||'bo1'})):[],matches:[],decks:[],environments:localEnvironments().map(mapEnvironment)};
+    try{await applyEnvironmentsToUnclassified(null)}catch{}
     populateFilters(forceDefaults);renderAnalysis();return;
   }
   const uid=session.user.id;
@@ -41,6 +42,7 @@ async function loadData(forceDefaults=false){
   ]);
   const error=er.error||mr.error||dr.error||xr.error;if(error){if(status)status.textContent='讀取失敗：'+error.message;return}
   data={events:er.data||[],matches:mr.data||[],decks:dr.data||[],environments:(xr.data||[]).map(mapEnvironment)};
+  try{await applyEnvironmentsToUnclassified(session)}catch{}
   notifyEnvironments();populateFilters(forceDefaults);renderAnalysis();
 }
 
@@ -50,7 +52,7 @@ function populateFilters(force=false){
   env.innerHTML='<option value="all">全部環境</option><option value="none">未分類</option>'+data.environments.map(x=>'<option value="'+x.id+'">'+esc(x.name)+'</option>').join('');
   deck.innerHTML='<option value="all">全部牌組</option>'+data.decks.map(x=>'<option value="'+x.id+'">'+esc(x.name)+'</option>').join('');
   if(!initialized||force){
-    const current=environmentForDate(today());env.value=current?.id||'all';
+    env.value='all';
     const event=[...data.events].filter(e=>(env.value==='all'||String(e.environment_id||'')===env.value)&&(e.match_format||'bo1')==='bo1'&&e.own_deck_id).sort((a,b)=>String(b.event_date).localeCompare(String(a.event_date)))[0];
     deck.value=event?.own_deck_id&&data.decks.some(d=>String(d.id)===String(event.own_deck_id))?String(event.own_deck_id):'all';
     initialized=true;
@@ -93,14 +95,23 @@ function renderDonut(groups,total){
 
 function setupEnvironmentDialog(){
   if($('#environmentDialogV510'))return;
-  const dialog=document.createElement('dialog');dialog.id='environmentDialogV510';dialog.className='v510-dialog';dialog.innerHTML='<form class="v510-env-modal"><button class="v510-dialog-close" type="button" aria-label="關閉">×</button><h3>環境管理</h3><p>設定名稱與日期範圍，新增比賽時會依日期自動帶入。</p><div class="v510-env-fields"><label><span>環境名稱</span><input id="environmentNameV510" maxlength="60" placeholder="例：30週年環境" required></label><label><span>開始日期</span><input id="environmentStartV510" type="date" required></label><label><span>結束日期（選填）</span><input id="environmentEndV510" type="date"></label></div><div id="environmentMessageV510" class="v510-env-message"></div><div class="actions"><button class="btn primary" type="submit" id="environmentSaveV510">新增環境</button><button class="btn" type="button" id="environmentCancelEditV510" hidden>取消編輯</button></div><div class="v510-env-divider"></div><div class="v510-env-list-head"><h4>已設定環境</h4><button class="btn small" type="button" id="classifyEnvironmentsV510">依日期套用到未分類比賽</button></div><div id="environmentListV510" class="v510-env-list"></div></form>';document.body.appendChild(dialog);
-  $('.v510-dialog-close',dialog).addEventListener('click',()=>dialog.close());dialog.addEventListener('cancel',e=>{e.preventDefault();dialog.close()});$('.v510-env-modal',dialog).addEventListener('submit',saveEnvironment);$('#environmentCancelEditV510').addEventListener('click',resetEnvironmentForm);$('#classifyEnvironmentsV510').addEventListener('click',classifyExisting);$('#environmentListV510').addEventListener('click',environmentListAction);
+  const dialog=document.createElement('dialog');dialog.id='environmentDialogV510';dialog.className='v510-dialog';dialog.innerHTML='<form class="v510-env-modal"><button class="v510-dialog-close" type="button" aria-label="關閉">×</button><h3>環境管理</h3><p>設定名稱與日期範圍；儲存後會自動套用到日期相符、尚未分類的比賽。</p><div class="v510-env-fields"><label><span>環境名稱</span><input id="environmentNameV510" maxlength="60" placeholder="例：30週年環境" required></label><label><span>開始日期</span><input id="environmentStartV510" type="date" required></label><label><span>結束日期（選填）</span><input id="environmentEndV510" type="date"></label></div><div id="environmentMessageV510" class="v510-env-message"></div><div class="actions"><button class="btn primary" type="submit" id="environmentSaveV510">新增環境</button><button class="btn" type="button" id="environmentCancelEditV510" hidden>取消編輯</button></div><div class="v510-env-divider"></div><div class="v510-env-list-head"><h4>已設定環境</h4></div><div id="environmentListV510" class="v510-env-list"></div></form>';document.body.appendChild(dialog);
+  $('.v510-dialog-close',dialog).addEventListener('click',()=>dialog.close());dialog.addEventListener('cancel',e=>{e.preventDefault();dialog.close()});$('.v510-env-modal',dialog).addEventListener('submit',saveEnvironment);$('#environmentCancelEditV510').addEventListener('click',resetEnvironmentForm);$('#environmentListV510').addEventListener('click',environmentListAction);
   $('#manageEnvironments')?.addEventListener('click',openEnvironmentDialog);
 }
 function openEnvironmentDialog(){resetEnvironmentForm();renderEnvironmentList();const d=$('#environmentDialogV510');try{if(!d.open)d.showModal()}catch{d.setAttribute('open','')}}
 function resetEnvironmentForm(){editingEnvironmentId=null;$('#environmentNameV510').value='';$('#environmentStartV510').value='';$('#environmentEndV510').value='';$('#environmentSaveV510').textContent='新增環境';$('#environmentCancelEditV510').hidden=true;$('#environmentMessageV510').textContent=''}
 function renderEnvironmentList(){const box=$('#environmentListV510');if(!box)return;const rows=[...data.environments].sort((a,b)=>b.startDate.localeCompare(a.startDate));box.innerHTML=rows.length?rows.map(x=>'<div class="v510-env-item"><div><strong>'+esc(x.name)+'</strong><span>'+formatDate(x.startDate)+' ～ '+(x.endDate?formatDate(x.endDate):'持續中')+'</span></div><div><button type="button" class="mini edit" data-env-edit="'+x.id+'">編輯</button><button type="button" class="mini del" data-env-delete="'+x.id+'">刪除</button></div></div>').join(''):'<div class="v510-env-empty">尚未設定環境。</div>'}
 function overlaps(id,start,end){const last=end||'9999-12-31';return data.environments.find(x=>x.id!==id&&start<=(x.endDate||'9999-12-31')&&x.startDate<=last)}
+async function applyEnvironmentsToUnclassified(session){
+  const assignments=data.events.map(e=>({event:e,environment:!e.environment_id?environmentForDate(e.event_date||e.date):null})).filter(x=>x.environment);
+  if(!assignments.length)return 0;
+  if(session){for(const x of assignments){const{error}=await db.from('events').update({environment_id:x.environment.id}).eq('id',x.event.id).eq('user_id',session.user.id).is('environment_id',null);if(error)throw error}}
+  else{let rows=[];try{rows=JSON.parse(localStorage.getItem('pokemon-lp-events')||'[]')}catch{}if(Array.isArray(rows)){const map=new Map(assignments.map(x=>[String(x.event.id),x.environment.id]));rows=rows.map(e=>map.has(String(e.id))?{...e,environmentId:map.get(String(e.id))}:e);localStorage.setItem('pokemon-lp-events',JSON.stringify(rows))}}
+  assignments.forEach(x=>{x.event.environment_id=x.environment.id;x.event.environmentId=x.environment.id});
+  window.dispatchEvent(new CustomEvent('pokemon:events-classified',{detail:assignments.map(x=>({eventId:x.event.id,environmentId:x.environment.id}))}));
+  return assignments.length;
+}
 async function saveEnvironment(e){
   e.preventDefault();const name=$('#environmentNameV510').value.trim(),start=$('#environmentStartV510').value,end=$('#environmentEndV510').value,msg=$('#environmentMessageV510');
   if(!name||!start){msg.textContent='請輸入環境名稱與開始日期。';return}if(end&&end<start){msg.textContent='結束日期不能早於開始日期。';return}const conflict=overlaps(editingEnvironmentId,start,end);if(conflict){msg.textContent='日期範圍與「'+conflict.name+'」重疊，請先調整。';return}
@@ -108,7 +119,7 @@ async function saveEnvironment(e){
   try{
     if(session){let q=editingEnvironmentId?db.from('environments').update({name,start_date:start,end_date:end||null,updated_at:new Date().toISOString()}).eq('id',editingEnvironmentId).eq('user_id',session.user.id):db.from('environments').insert({user_id:session.user.id,name,start_date:start,end_date:end||null});const{data:row,error}=await q.select().single();if(error)throw error;const mapped=mapEnvironment(row);data.environments=editingEnvironmentId?data.environments.map(x=>x.id===editingEnvironmentId?mapped:x):[mapped,...data.environments]}
     else{const row={id:editingEnvironmentId||crypto.randomUUID(),name,startDate:start,endDate:end,createdAt:new Date().toISOString()};data.environments=editingEnvironmentId?data.environments.map(x=>x.id===editingEnvironmentId?row:x):[row,...data.environments];saveLocalEnvironments(data.environments)}
-    notifyEnvironments();populateFilters();renderAnalysis();renderEnvironmentList();resetEnvironmentForm();msg.textContent='已儲存。';
+    const applied=await applyEnvironmentsToUnclassified(session);notifyEnvironments();populateFilters();renderAnalysis();renderEnvironmentList();resetEnvironmentForm();msg.textContent=applied?'已儲存，並自動套用到 '+applied+' 場未分類比賽。':'已儲存。';
   }catch(err){msg.textContent='儲存失敗：'+(err.message||err)}finally{save.disabled=false}
 }
 async function environmentListAction(e){
@@ -118,11 +129,6 @@ async function environmentListAction(e){
   const{data:{session}}=await db.auth.getSession();if(session){const{error}=await db.from('environments').delete().eq('id',x.id).eq('user_id',session.user.id);if(error){$('#environmentMessageV510').textContent='刪除失敗：'+error.message;return}}else{let events=[];try{events=JSON.parse(localStorage.getItem('pokemon-lp-events')||'[]')}catch{}if(Array.isArray(events)){events=events.map(v=>String(v.environmentId||'')===String(x.id)?{...v,environmentId:null}:v);localStorage.setItem('pokemon-lp-events',JSON.stringify(events))}}
   data.environments=data.environments.filter(v=>v.id!==x.id);saveLocalEnvironments(data.environments);notifyEnvironments();await loadData();renderEnvironmentList();
 }
-async function classifyExisting(){
-  const btn=$('#classifyEnvironmentsV510'),msg=$('#environmentMessageV510');if(!data.environments.length){msg.textContent='請先新增至少一個環境。';return}btn.disabled=true;msg.textContent='套用中…';
-  try{const{data:{session}}=await db.auth.getSession();if(session){const{data:rows,error}=await db.from('events').select('id,event_date,environment_id').eq('user_id',session.user.id).is('environment_id',null);if(error)throw error;const updates=(rows||[]).map(e=>({e,env:environmentForDate(e.event_date)})).filter(x=>x.env);for(const x of updates){const{error:updateError}=await db.from('events').update({environment_id:x.env.id}).eq('id',x.e.id).eq('user_id',session.user.id);if(updateError)throw updateError}msg.textContent='已套用 '+updates.length+' 場未分類比賽。'}else{let rows=[];try{rows=JSON.parse(localStorage.getItem('pokemon-lp-events')||'[]')}catch{}let count=0;rows=(Array.isArray(rows)?rows:[]).map(e=>{if(e.environmentId)return e;const env=environmentForDate(e.date||e.event_date);if(!env)return e;count++;return{...e,environmentId:env.id}});localStorage.setItem('pokemon-lp-events',JSON.stringify(rows));msg.textContent='已套用 '+count+' 場未分類比賽。'}await loadData();notifyEnvironments()}catch(err){msg.textContent='套用失敗：'+(err.message||err)}finally{btn.disabled=false}
-}
-
 function bindRefresh(){document.addEventListener('click',e=>{if(e.target.closest?.('[data-v572-nav="analysis"]'))setTimeout(()=>loadData(),0)});window.addEventListener('pokemon:data-ready',()=>loadData());window.addEventListener('pokemon:event-save-success',()=>setTimeout(()=>loadData(),120));db?.auth.onAuthStateChange(()=>setTimeout(()=>loadData(true),80))}
 function init(){setupAnalysis();setupEnvironmentDialog();bindRefresh();loadData(true);const v=$('.app-version-v14');if(v){v.textContent='V5.10.0';v.title='目前版本 V5.10.0'}}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,180));else setTimeout(init,180);
