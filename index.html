@@ -29,6 +29,7 @@
 <link rel="stylesheet" data-share-fix href="./share-fix.css?v=5.9.1-r3">
 <link rel="stylesheet" href="./v5.9.4.css?v=5.9.4">
 <link rel="stylesheet" href="./v5.9.5.css?v=5.9.5">
+<link rel="stylesheet" href="./v5.10.0.css?v=5.10.0">
 </head>
 <body>
 <div class="app">
@@ -46,6 +47,7 @@
   <h2 id="formTitle">新增比賽</h2><p class="hint">輸入名次後，已公布規則的賽事會自動計算 LP；世界賽僅作戰報紀錄，不納入 Best 8。</p>
   <form id="form"><div class="grid">
     <label><span>日期</span><input id="date" type="date" required></label>
+    <label><span>環境</span><span class="environment-field-v510"><select id="environment"><option value="">未分類</option></select><button id="manageEnvironments" class="environment-manage-v510" type="button">管理</button></span><small class="help">依比賽日期自動帶入，可手動更改</small></label>
     <label><span>地點</span><input id="location" maxlength="80" placeholder="例：台南 XXX 卡牌道館" required></label>
     <label><span>比賽規格</span><select id="league"><option value="great">超級球聯盟賽</option><option value="premier">紀念球聯盟賽</option><option value="ultra">高級球聯盟賽</option><option value="master">大師球聯盟賽</option><option value="world">世界賽</option></select></label>
     <label><span>對戰賽制</span><select id="matchFormat"><option value="bo1">BO1</option><option value="bo3">BO3</option><option value="mixed">混合（每輪設定）</option></select></label>
@@ -84,17 +86,18 @@
 <script src="./pokemon-picker.js?v=13.5"></script>
 <script src="./secondary-items-v5.9.2.js?v=5.9.2"></script>
 <script src="./v5.4.1.js?v=5.4.1"></script>
-<script src="./app.js?v=5.7.2"></script>
+<script src="./app.js?v=5.10.0"></script>
 <script src="./opponent-history-core-v10.js?v=5.9.3"></script>
 <script src="./battle-v11.js?v=5.9.3"></script>
 <script src="./own-deck-v13.js?v=5.9.2"></script>
 <script src="./bo3-v13.3.js?v=13.3"></script>
 <script src="./ui-v13.9.js?v=13.9"></script>
 <script src="./v5.7.2.js?v=5.7.2"></script>
-<script src="./v5.7.3.js?v=5.9.5"></script>
+<script src="./v5.7.3.js?v=5.10.0"></script>
 <script src="./ui-v14.js?v=5.7.3"></script>
 <script src="./save-dialog-v14.4.4.js?v=15.3.2"></script>
 <script src="./v15.js?v=15.1.4"></script>
 <script src="./v5.8.js?v=5.9.1-r2"></script>
+<script src="./v5.10.0.js?v=5.10.0"></script>
 </body>
 </html>
