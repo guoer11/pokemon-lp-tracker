@@ -130,6 +130,6 @@ async function environmentListAction(e){
   data.environments=data.environments.filter(v=>v.id!==x.id);saveLocalEnvironments(data.environments);notifyEnvironments();await loadData();renderEnvironmentList();
 }
 function bindRefresh(){document.addEventListener('click',e=>{if(e.target.closest?.('[data-v572-nav="analysis"]'))setTimeout(()=>loadData(),0)});window.addEventListener('pokemon:data-ready',()=>loadData());window.addEventListener('pokemon:event-save-success',()=>setTimeout(()=>loadData(),120));db?.auth.onAuthStateChange(()=>setTimeout(()=>loadData(true),80))}
-function init(){setupAnalysis();setupEnvironmentDialog();bindRefresh();loadData(true);const v=$('.app-version-v14');if(v){v.textContent='V5.10.1';v.title='目前版本 V5.10.1'}}
+function init(){setupAnalysis();setupEnvironmentDialog();bindRefresh();loadData(true);const v=$('.app-version-v14');if(v){v.textContent='V5.11.0';v.title='目前版本 V5.11.0'}}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,180));else setTimeout(init,180);
 })();
