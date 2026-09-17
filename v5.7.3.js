@@ -1,6 +1,6 @@
 (()=>{'use strict';
 if(window.__pokemonV573)return;window.__pokemonV573=true;
-const VERSION='V5.11.0';
+const VERSION='V5.11.1';
 function ensureStyle(){
   if(!document.querySelector('link[data-v575]')){const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.5.css?v=5.7.5';link.dataset.v575='1';document.head.appendChild(link)}
   if(!document.querySelector('link[data-v576]')){const link=document.createElement('link');link.rel='stylesheet';link.href='./v5.7.6.css?v=5.7.6';link.dataset.v576='1';document.head.appendChild(link)}
@@ -40,13 +40,28 @@ function fixRecords(){
     const span=document.createElement('span');span.className='event-record-nowrap';span.textContent=m[2];meta.appendChild(span);
   });
 }
+function resetBeforeAdd(){
+  const reset=document.getElementById('reset');
+  if(reset)reset.click();
+  const title=document.getElementById('formTitle'),submit=document.getElementById('submitBtn');
+  if(title)title.textContent='新增比賽';
+  if(submit)submit.textContent='儲存比賽';
+}
+function installAddResetFix(){
+  if(document.body?.dataset.v5111AddReset==='1')return;
+  if(document.body)document.body.dataset.v5111AddReset='1';
+  document.addEventListener('click',e=>{
+    const add=e.target.closest?.('[data-v572-nav="add"],.quick-add-v14');
+    if(add)resetBeforeAdd();
+  },true);
+}
 function fix(){
   ensureStyle();organizeAccount();fixRecords();
   const v=document.querySelector('.app-version-v14');
   if(v&&v.textContent!==VERSION){v.textContent=VERSION;v.title='目前版本 '+VERSION}
 }
 function startGuard(){
-  fix();
+  installAddResetFix();fix();
   const root=document.querySelector('.app')||document.body;if(!root)return;
   const observer=new MutationObserver(()=>fix());observer.observe(root,{childList:true,characterData:true,subtree:true});
   setTimeout(fix,100);setTimeout(fix,500);setTimeout(fix,1200);
