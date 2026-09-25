@@ -44,7 +44,7 @@
   <div class="sum"><span>第 8 高分</span><strong id="cutoff">—</strong> LP</div>
 </section>
 <section class="panel">
-  <h2 id="formTitle">新增比賽</h2><p class="hint">輸入名次後，已公布規則的賽事會自動計算 LP；世界賽僅作戰報紀錄，不納入 Best 8。</p>
+  <h2 id="formTitle">新增比賽</h2><p class="hint">最終名次可於賽後補填；填入後，已公布規則的賽事會自動計算 LP。世界賽僅作戰報紀錄，不納入 Best 8。</p>
   <form id="form"><div class="grid">
     <label><span>日期</span><input id="date" type="date" required></label>
     <label><span>環境</span><span class="environment-field-v510"><select id="environment"><option value="">未分類</option></select><button id="manageEnvironments" class="environment-manage-v510" type="button">管理</button></span><small class="help">依比賽日期自動帶入，可手動更改</small></label>
@@ -52,7 +52,7 @@
     <label><span>比賽規格</span><select id="league"><option value="great">超級球聯盟賽</option><option value="premier">紀念球聯盟賽</option><option value="ultra">高級球聯盟賽</option><option value="master">大師球聯盟賽</option><option value="world">世界賽</option></select></label>
     <label><span>對戰賽制</span><select id="matchFormat"><option value="bo1">BO1</option><option value="bo3">BO3</option><option value="mixed">混合（每輪設定）</option></select></label>
     <label><span>參加人數</span><input id="participants" type="number" inputmode="numeric" min="1" max="9999" placeholder="例：64" required></label>
-    <label><span>最終名次</span><input id="placement" type="number" inputmode="numeric" min="1" max="9999" placeholder="例：8" required></label>
+    <label><span>最終名次（選填）</span><input id="placement" type="number" inputmode="numeric" min="1" max="9999" placeholder="賽後再填"></label>
     <label><span>聯盟賽點數 LP</span><input id="lp" type="number" inputmode="numeric" min="0" max="9999"><small id="scoreHelp" class="help">依官方規則自動計算</small></label>
   </div><div id="preview" class="preview">目前預估：<strong>0 LP</strong></div><div id="msg" class="msg"></div><div class="actions"><button id="submitBtn" class="btn primary" type="submit">儲存比賽</button><button id="reset" class="btn" type="button">清除欄位</button></div></form>
 </section>
@@ -86,7 +86,7 @@
 <script src="./pokemon-picker.js?v=13.5"></script>
 <script src="./secondary-items-v5.9.2.js?v=5.9.2"></script>
 <script src="./v5.4.1.js?v=5.4.1"></script>
-<script src="./app.js?v=5.10.1"></script>
+<script src="./app.js?v=5.12.1"></script>
 <script src="./opponent-history-core-v10.js?v=5.9.3"></script>
 <script src="./battle-v11.js?v=5.9.3"></script>
 <script src="./own-deck-v13.js?v=5.9.2"></script>
