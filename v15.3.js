@@ -53,8 +53,16 @@ function writeLp(value){const lp=$('lp');if(!lp)return;internalLpWrite=true;lp.v
 function syncLegacyScore(forceAuto=false){
   const league=$('league'),parts=$('participants'),lp=$('lp'),help=$('scoreHelp'),preview=$('preview');
   if(!league||!parts||!lp||!help||!preview||!isLegacyLeague())return;
+  const hasPlacement=String($('placement')?.value||'').trim()!=='';
   const score=legacyScore();
-  lp.readOnly=false;lp.required=true;
+  lp.readOnly=false;lp.required=hasPlacement;
+  if(!hasPlacement){
+    lp.dataset.manualOverride='0';
+    writeLp(0);
+    help.textContent='最終名次尚未填寫，賽後補上即可自動計算 LP';
+    preview.innerHTML='名次未填：<strong>暫不計 LP</strong>';
+    return;
+  }
   if(forceAuto||lp.dataset.manualOverride!=='1'){
     lp.dataset.manualOverride='0';
     writeLp(score);
