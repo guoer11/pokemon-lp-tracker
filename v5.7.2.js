@@ -10,7 +10,7 @@ const norm=s=>String(s??'').normalize('NFKC').toLocaleLowerCase('zh-Hant').repla
 const ICONS={home:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg>',search:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>',add:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',analysis:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',ranking:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M5 20v-6h4v6M10 20V7h4v13M15 20v-9h4v9"/><path d="m10.5 4 1.5-1 1.5 1"/></svg>',account:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Zm0 2c-4.7 0-8 2.4-8 5.1 0 .7.6 1.3 1.3 1.3h13.4c.7 0 1.3-.6 1.3-1.3C20 16.4 16.7 14 12 14Z"/></svg>'};
 let db=null,searchRows=[],activeLeague='all',searchTimer=null;
 function getDb(){if(!db&&window.supabase)db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);return db}
-function stampVersion(){const v=document.querySelector('.app-version-v14');if(v){v.textContent='V5.7.2';v.title='目前版本 V5.7.2'}}
+function stampVersion(){const v=document.querySelector('.app-version-v14');if(v){v.textContent='V5.14.0';v.title='目前版本 V5.14.0'}}
 function navBtn(key,label,add=false){return '<button type="button" class="v572-nav-btn '+(key==='home'?'is-active ':'')+(add?'v572-add':'')+'" data-v572-nav="'+key+'">'+(add?'<span class="v572-add-circle">'+ICONS.add+'</span>':ICONS[key])+'<span>'+label+'</span></button>'}
 function navMarkup(cls){return '<nav class="'+cls+'" aria-label="主要導覽">'+navBtn('home','首頁')+navBtn('search','搜尋')+navBtn('add','新增',true)+navBtn('analysis','分析')+navBtn('account','我的')+'</nav>'}
 function cleanupOld(){
@@ -27,13 +27,42 @@ function ensurePages(){
   const filter=document.getElementById('filter');if(filter&&filter.value!=='all'){filter.value='all';filter.dispatchEvent(new Event('change',{bubbles:true}))}
   if(!document.querySelector('.v572-desktop-nav'))document.querySelector('header')?.insertAdjacentHTML('afterend',navMarkup('v572-desktop-nav'));
   if(!document.querySelector('.v572-mobile-nav'))document.body.insertAdjacentHTML('beforeend',navMarkup('v572-mobile-nav'));
-  if(!document.querySelector('.v572-home-shortcuts')){
-    const shortcuts=document.createElement('section');shortcuts.className='v572-home-shortcuts';shortcuts.innerHTML='<div class="v572-shortcuts-head"><h2>快捷功能</h2></div><a class="v572-shortcut-card" href="https://guoer11.github.io/ptcg-ranking/" target="_blank" rel="noopener"><span class="v572-shortcut-icon">'+ICONS.ranking+'</span><span class="v572-shortcut-copy"><strong>PTCG 台灣即時排名</strong><small>查看最新積分與排名</small></span><span class="v572-shortcut-open" aria-hidden="true">↗</span></a>';summary.insertAdjacentElement('afterend',shortcuts);
+  document.querySelector('.v572-home-shortcuts')?.remove();
+  if(!document.querySelector('.v572-home-best8')){
+    const best8=document.createElement('section');
+    best8.className='v572-home-best8';
+    best8.innerHTML='<div class="v572-best8-head"><h2><span aria-hidden="true">⚡</span> 前 8 場高積分賽事</h2></div><div class="v572-best8-formula"><span id="v572Best8Count">0 場合計</span><strong id="v572Best8Expression">0 = <b>0分</b></strong></div>';
+    summary.insertAdjacentElement('afterend',best8);
+    bindBest8Summary();
   }
   const search=document.createElement('section');search.className='v572-page v572-page-search v572-page-shell';search.innerHTML='<div class="v572-page-head"><h2>搜尋比賽紀錄</h2><p>搜尋地點、自己的牌組、對手牌組或寶可夢；賽事篩選也集中在這裡。</p></div><div class="v572-search-help">名次標示依最終名次顯示冠軍／亞軍／TOP 4／TOP 8／TOP 16。LP 總分仍取可計分賽事最高 8 場。</div><div class="v572-search-input-wrap"><input id="searchInputV572" class="v572-search-input" type="search" autocomplete="off" placeholder="搜尋比賽、地點、牌組、對手牌組…"><span class="v572-search-icon">'+ICONS.search+'</span></div><div class="v572-search-chips">'+Object.entries(LEAGUE).map(([k,v])=>'<button type="button" class="v572-chip '+(k==='all'?'is-active':'')+'" data-v572-league="'+k+'">'+v+'</button>').join('')+'</div><div id="searchStatusV572" class="v572-search-status"></div><div id="searchResultsV572" class="v572-search-results"></div>';app.appendChild(search);bindSearch(search);
   const analysis=document.createElement('section');analysis.className='v572-page v572-page-analysis v572-page-shell';analysis.innerHTML='<div class="v572-page-head"><h2>分析</h2><p>這裡會作為之後的賽季與牌組分析頁。</p></div><div class="v572-analysis-card"><div class="v572-analysis-icon">'+ICONS.analysis+'</div><h3>分析功能規劃中</h3><p>預計加入年度戰績、自己的牌組使用率與勝率、對手牌組分布，以及勝率／敗率等統計。</p><div class="v572-plan-tags"><span>年度戰績</span><span>牌組使用率</span><span>勝敗率</span><span>對手環境</span></div></div>';app.appendChild(analysis);
   const account=document.createElement('section');account.className='v572-page v572-page-account v572-page-shell';account.innerHTML='<div class="v572-page-head"><h2>我的</h2><p>帳號、同步狀態、資料備份與使用說明集中在這裡。</p></div><div class="v572-account-summary"><div class="v572-account-avatar">'+ICONS.account+'</div><div class="v572-account-copy"><div class="v572-account-state"></div><div class="v572-account-email"></div><div class="v572-account-sync"></div></div><div class="v572-account-actions"><button type="button" class="btn primary v572-login">使用 Google 登入</button><button type="button" class="btn v572-logout">登出</button></div></div>';if(bottom)account.appendChild(bottom);app.appendChild(account);bindAccount(account);
   document.body.classList.add('v572-ready');document.body.dataset.v572Page='home';bindNav();refreshAccount();stampVersion();setTimeout(stampVersion,500);
+}
+function updateBest8Summary(){
+  const box=document.querySelector('.v572-home-best8');if(!box)return;
+  const scores=[...document.querySelectorAll('.event-card.best .score strong')]
+    .map(el=>Number(String(el.textContent||'').replace(/[^0-9.-]/g,'')))
+    .filter(n=>Number.isFinite(n)&&n>0)
+    .sort((a,b)=>b-a)
+    .slice(0,8);
+  const total=scores.reduce((sum,n)=>sum+n,0);
+  const count=box.querySelector('#v572Best8Count');
+  const expression=box.querySelector('#v572Best8Expression');
+  if(count)count.textContent=scores.length+' 場合計';
+  if(expression)expression.innerHTML=(scores.length?scores.join('+'):'0')+' = <b>'+total+'分</b>';
+}
+function bindBest8Summary(){
+  const box=document.querySelector('.v572-home-best8');if(!box||box.dataset.bound==='1')return;
+  box.dataset.bound='1';
+  let queued=false;
+  const refresh=()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;updateBest8Summary()})};
+  const observer=new MutationObserver(refresh);
+  const list=document.getElementById('list'),total=document.getElementById('total');
+  if(list)observer.observe(list,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['class']});
+  if(total)observer.observe(total,{childList:true,subtree:true,characterData:true});
+  updateBest8Summary();
 }
 function setActive(key){document.querySelectorAll('[data-v572-nav]').forEach(b=>b.classList.toggle('is-active',b.dataset.v572Nav===key))}
 function bindNav(){if(document.body.dataset.v572NavBound==='1')return;document.body.dataset.v572NavBound='1';document.addEventListener('click',async e=>{const b=e.target.closest?.('[data-v572-nav]');if(!b)return;const k=b.dataset.v572Nav;if(k==='add'){const q=document.querySelector('.quick-add-v14');if(q)q.click();else{document.getElementById('reset')?.click();const d=document.getElementById('eventDialogV14');try{if(d&&!d.open)d.showModal()}catch{}}return}await switchPage(k)})}
