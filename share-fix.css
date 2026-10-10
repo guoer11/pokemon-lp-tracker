@@ -25,6 +25,9 @@
 .event-card.v15-card-share-mode .event-main .v592-record-row{justify-content:flex-start;padding-right:0}
 .event-card.v15-card-share-mode .event-main .v592-toggle{display:none}
 .v15-card-share-mode .rowactions{display:none!important}
+.event-card.v15-card-share-mode .report.v15-share-mode>.add-round,
+.event-card.v15-card-share-mode .report.v15-share-mode>.v15-add-round,
+.event-card.v15-card-share-mode .add-round.v15-add-round{display:none!important}
 .v15-share-exit-top{position:absolute;right:8px;top:6px;z-index:6;min-height:30px;padding:5px 9px;border:1px solid #93c5fd;border-radius:9px;background:#eff6ff;color:var(--blue);font-size:11px;font-weight:850;cursor:pointer}
 .v15-share-exit-top:hover{filter:brightness(.98)}
 @media(max-width:680px){
