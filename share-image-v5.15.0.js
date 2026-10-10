@@ -74,6 +74,28 @@ function canvasBlob(canvas){
   });
 }
 
+// Mobile "prominent safe" export: keep the report comfortably inside the image
+// so Dynamic Island / rounded screen corners cover white space instead of content.
+function frameShareCanvas(source,renderScale){
+  const contentScale=.93;
+  const side=Math.max(1,Math.round(24*renderScale));
+  const top=Math.max(1,Math.round(42*renderScale));
+  const bottom=Math.max(1,Math.round(30*renderScale));
+  const contentWidth=Math.max(1,Math.round(source.width*contentScale));
+  const contentHeight=Math.max(1,Math.round(source.height*contentScale));
+  const framed=document.createElement('canvas');
+  framed.width=contentWidth+side*2;
+  framed.height=contentHeight+top+bottom;
+  const ctx=framed.getContext('2d');
+  if(!ctx)return source;
+  ctx.fillStyle='#ffffff';
+  ctx.fillRect(0,0,framed.width,framed.height);
+  ctx.imageSmoothingEnabled=true;
+  ctx.imageSmoothingQuality='high';
+  ctx.drawImage(source,0,0,source.width,source.height,side,top,contentWidth,contentHeight);
+  return framed;
+}
+
 async function buildShareFile(card){
   const render=await loadRenderer();
   try{await document.fonts?.ready}catch{}
@@ -106,7 +128,8 @@ async function buildShareFile(card){
       }
     }
   });
-  const blob=await canvasBlob(canvas);
+  const finalCanvas=frameShareCanvas(canvas,scale);
+  const blob=await canvasBlob(finalCanvas);
   return new File([blob],imageFileName(card),{type:'image/png',lastModified:Date.now()});
 }
 
