@@ -189,7 +189,7 @@ function sharePrepared(button,card,file){
     if(!navigator.share)return false;
     try{
       if(navigator.canShare&&!navigator.canShare({files:[file]}))return false;
-      const p=navigator.share({files:[file],title:'寶可夢比賽戰報'});
+      const p=navigator.share({files:[file]});
       Promise.resolve(p).catch(error=>{
         if(error?.name!=='AbortError'){
           console.warn('系統分享失敗，改用下載',error);
