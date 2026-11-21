@@ -3,7 +3,7 @@ const openRounds=new Set();
 let pendingAdd=null,shareReport=null,refreshQueued=false;
 const qs=(s,r=document)=>r.querySelector(s),qsa=(s,r=document)=>[...r.querySelectorAll(s)];
 const matchId=row=>String(row?.dataset.match||'');
-const roundNumber=row=>Number((qs('.round-no',row)?.textContent||'').replace(/\D/g,''))||0;
+const roundNumber=row=>Number(row?.dataset.roundNo)||Number((qs('.round-no',row)?.textContent||'').replace(/\D/g,''))||0;
 function ensureShareFixStyle(){
   if(document.querySelector('link[data-share-fix]'))return;
   const link=document.createElement('link');link.rel='stylesheet';link.href='./share-fix.css?v=5.8.5-fix3';link.dataset.shareFix='1';document.head.appendChild(link);
@@ -65,11 +65,11 @@ function applyOpen(row){
 function updateSummary(row){
   const summary=buildSummary(row),detail=ensureDetail(row);
   if(!detail)return;
-  const no=roundNumber(row),name=(qs('.r-opponent',detail)?.value||'').trim(),images=summaryImages(row),r=summaryResult(row);
-  const key=JSON.stringify([no,name,images.map(x=>x.src),r.result,r.main,r.small]);
+  const no=roundNumber(row),stage=String(row.dataset.stageLabel||('R'+(no||'?'))),name=(qs('.r-opponent',detail)?.value||'').trim(),images=summaryImages(row),r=summaryResult(row);
+  const key=JSON.stringify([no,stage,name,images.map(x=>x.src),r.result,r.main,r.small]);
   if(summary.dataset.summaryKey!==key){
     summary.dataset.summaryKey=key;
-    qs('.v15-round-no',summary).textContent='R'+(no||'?');
+    qs('.v15-round-no',summary).textContent=stage;
     const pair=qs('.v15-pokemon-pair',summary);pair.innerHTML='';
     for(const img of images){const el=document.createElement('img');el.src=img.src;el.alt=img.alt;pair.appendChild(el)}
     qs('.v15-deck-name',summary).textContent=name||'尚未填寫對手牌組';
@@ -119,11 +119,12 @@ function decorateReport(report){
   const head=qs('.report-head',report);
   if(head){
     const tools=document.createElement('div');tools.className='v15-report-tools';
-    tools.innerHTML='<button type="button" class="v15-tool v15-expand">展開全部</button><button type="button" class="v15-tool v15-collapse">收合全部</button><button type="button" class="v15-tool v15-share">分享模式</button>';
+    tools.innerHTML='<button type="button" class="v15-tool v15-expand">展開全部</button><button type="button" class="v15-tool v15-collapse">收合全部</button><button type="button" class="v15-tool v15-share">分享模式</button><button type="button" class="v15-tool v15-configure-playoff">設定複賽</button>';
     head.insertAdjacentElement('afterend',tools);
     qs('.v15-expand',tools).addEventListener('click',()=>setAll(report,true));
     qs('.v15-collapse',tools).addEventListener('click',()=>setAll(report,false));
     qs('.v15-share',tools).addEventListener('click',()=>setShareMode(report,!report.classList.contains('v15-share-mode')));
+    qs('.v15-configure-playoff',tools).addEventListener('click',()=>report.closest('.event-card')?.querySelector('.edit')?.click());
   }
   const add=qs('.add-round',report);
   if(add){add.textContent='＋ 新增一輪';add.classList.add('v15-add-round')}
