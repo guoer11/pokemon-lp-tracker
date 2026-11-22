@@ -5,7 +5,8 @@
 }
 .round.playoff-round .v15-round-no{
   color:#b7791f!important;font-weight:900;white-space:nowrap;
-  font-size:11px;letter-spacing:-.15px;
+  font-size:14px;letter-spacing:-.2px;
+  text-align:left;padding-left:18px;line-height:1.15;
 }
 .round.playoff-round .round-detail-v15 .round-no{font-weight:900;color:#b7791f}
 .v15-share-mode .v15-configure-playoff{display:none!important}
@@ -15,5 +16,6 @@
     grid-template-columns:62px minmax(0,1fr) 58px 16px!important;
     gap:5px!important;
   }
-  .round.playoff-round .v15-round-no{font-size:10px;letter-spacing:-.25px}
+  /* Match the left edge of centered R1/R7 labels in the 38px mobile column. */
+  .round.playoff-round .v15-round-no{font-size:13px;letter-spacing:-.25px;padding-left:12px}
 }
