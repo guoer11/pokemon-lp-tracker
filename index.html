@@ -59,7 +59,7 @@
       <option value="16">TOP 16</option><option value="8">TOP 8</option>
       <option value="4">TOP 4</option><option value="2">FINAL</option>
     </select><small class="help">只調整戰報輪次名稱，不影響勝敗或 LP</small></label>
-    <label><span>從第幾輪開始複賽</span><input id="playoffStartRound" type="number" min="1" max="64" step="1" inputmode="numeric" placeholder="例如：8" disabled><small class="help">例如第 8 輪開始 TOP 16，接著 TOP 8、TOP 4、FINAL</small></label>
+    <label><span>從第幾輪開始複賽</span><input id="playoffStartRound" type="number" min="1" max="64" step="1" inputmode="numeric" placeholder="例如：8"><small class="help">可先填輪次或階段；兩項需一起設定。例如第 8 輪開始 TOP 16</small></label>
     <label><span>參加人數</span><input id="participants" type="number" inputmode="numeric" min="1" max="9999" placeholder="例：64" required></label>
     <label><span>最終名次（選填）</span><input id="placement" type="number" inputmode="numeric" min="1" max="9999" placeholder="賽後再填"></label>
     <label><span>聯盟賽點數 LP</span><input id="lp" type="number" inputmode="numeric" min="0" max="9999"><small id="scoreHelp" class="help">依官方規則自動計算</small></label>
@@ -96,7 +96,7 @@
 <script src="./secondary-items-v5.9.2.js?v=5.9.2"></script>
 <script src="./v5.4.1.js?v=5.4.1"></script>
 <script src="./playoff-stages-v5.16.0.js?v=5.16.0"></script>
-<script src="./app.js?v=5.16.0"></script>
+<script src="./app.js?v=5.16.1"></script>
 <script src="./opponent-history-core-v10.js?v=5.9.3"></script>
 <script src="./battle-v11.js?v=5.9.3"></script>
 <script src="./own-deck-v13.js?v=5.9.2"></script>
@@ -109,6 +109,6 @@
 <script src="./v15.js?v=5.16.0"></script>
 <script src="./v5.8.js?v=5.9.1-r2"></script>
 <script src="./v5.10.0.js?v=5.11.0"></script>
-<script src="./share-image-v5.16.0.js?v=5.16.0"></script>
+<script src="./share-image-v5.16.0.js?v=5.16.1"></script>
 </body>
 </html>
