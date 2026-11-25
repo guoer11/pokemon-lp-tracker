@@ -2,7 +2,6 @@
 if(window.__pokemonShareImageV515)return;
 window.__pokemonShareImageV515=true;
 
-const VERSION='V5.16.2';
 const HTML2CANVAS_URL='https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
 const prepared=new WeakMap();
 const bypass=new WeakSet();
@@ -15,11 +14,6 @@ const qsa=(s,r=document)=>[...r.querySelectorAll(s)];
 function isMobileShare(){
   const touch=Number(navigator.maxTouchPoints||0)>0||'ontouchstart' in window;
   return touch&&window.matchMedia('(max-width: 900px)').matches;
-}
-
-function stampVersion(){
-  const el=qs('.app-version-v14');
-  if(el){el.textContent=VERSION;el.title='目前版本 '+VERSION;}
 }
 
 function loadRenderer(){
@@ -247,15 +241,13 @@ function scan(){
 }
 function queueScan(){
   if(scanQueued)return;scanQueued=true;
-  requestAnimationFrame(()=>{scanQueued=false;scan();stampVersion();});
+  requestAnimationFrame(()=>{scanQueued=false;scan();});
 }
 
 // Capture phase intercepts the existing "結束分享" handler only on phones.
 document.addEventListener('click',handleExitClick,true);
 new MutationObserver(queueScan).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
 
-stampVersion();
-[100,650,1600].forEach(ms=>setTimeout(stampVersion,ms));
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{stampVersion();scan()});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{scan()});
 else scan();
 })();

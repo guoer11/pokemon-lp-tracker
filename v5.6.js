@@ -25,7 +25,6 @@ function getDb(){
 function safeShow(dlg){try{if(!dlg.open)dlg.showModal()}catch{dlg.setAttribute('open','')}}
 function closeSheets(){document.querySelectorAll('dialog.v56-sheet[open]').forEach(d=>{try{d.close()}catch{d.removeAttribute('open')}})}
 function setActive(key){document.querySelectorAll('.mobile-nav-item-v56').forEach(b=>b.classList.toggle('is-active',b.dataset.nav===key))}
-function stampVersion(){const v=document.querySelector('.app-version-v14');if(v){v.textContent='V5.6';v.title='目前版本 V5.6'}}
 
 function makeSheet(id,title,body){
   let dlg=document.getElementById(id);if(dlg)return dlg;
@@ -160,10 +159,10 @@ function buildNav(){
     if(key==='account'){const dlg=ensureAccountSheet();refreshAccountSheet();safeShow(dlg);return}
   });
   const auth=document.querySelector('.auth');if(auth)new MutationObserver(()=>{if(document.getElementById('accountDialogV56')?.open)refreshAccountSheet();loadedUserId=null}).observe(auth,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden','class']});
-  stampVersion();setTimeout(stampVersion,650);
+  ;
 }
 
-function init(){if(MQ.matches)buildNav();stampVersion()}
+function init(){if(MQ.matches)buildNav();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 MQ.addEventListener?.('change',e=>{if(e.matches)buildNav()});
 })();

@@ -8,8 +8,7 @@ function fixAccountNav(){
     btn.innerHTML=USER_ICON+'<span>我的</span>';
   });
 }
-function stampVersion(){const v=document.querySelector('.app-version-v14');if(v){v.textContent='V5.7.1';v.title='目前版本 V5.7.1'}}
-function fix(){fixAccountNav();stampVersion()}
+function fix(){fixAccountNav();}
 const observer=new MutationObserver(fix);observer.observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fix);else fix();
 setTimeout(fix,250);setTimeout(fix,900);
