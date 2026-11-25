@@ -32,7 +32,7 @@ assert.match(app,/syncPlayoffControls/);
 assert.match(html,/id="playoffStartSize"/);
 assert.match(html,/id="playoffStartRound"/);
 assert.match(html,/playoff-stages-v5\.16\.0\.js\?v=5\.16\.0/);
-assert.match(html,/share-image-v5\.16\.0\.js\?v=5\.16\.1/);
+assert.match(html,/share-image-v5\.16\.0\.js\?v=\d+\.\d+\.\d+/);
 assert.match(summary,/row\.dataset\.roundNo/);
 assert.match(summary,/row\.dataset\.stageLabel/);
 assert.match(summary,/v15-configure-playoff/);

@@ -2,7 +2,7 @@
 if(window.__pokemonShareImageV515)return;
 window.__pokemonShareImageV515=true;
 
-const VERSION='V5.16.1';
+const VERSION='V5.16.2';
 const HTML2CANVAS_URL='https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
 const prepared=new WeakMap();
 const bypass=new WeakSet();
